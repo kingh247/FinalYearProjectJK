@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Additional styles for footer*/
+/* footer {
+  background-color: grey;
+  padding: 25px;
+} */
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  color: white;
+}
+
+.footer-section {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.footer-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.social-icons a {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  background-color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+/* Additional styles for rating*/
+.rating span {
+  margin: 0.1rem;
+}
+
+.rating svg {
+  color: blue;
+}
+
+.rating-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+/* Add this CSS to your project's stylesheet or a separate CSS file */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white; /* Set your desired background color */
+}
+
+.login-card {
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 800px;
+  width: 100%;
+}
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white; /* Set your desired background color */
+}
+
+.signup-card {
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+button {
+  background-color: blue; /* Set your desired button color */
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: blue; /* Set your desired button color on hover */
+}
+
+p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+a {
+  color: blue; /* Set your desired link color */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
