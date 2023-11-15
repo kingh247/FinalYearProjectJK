@@ -3,7 +3,7 @@ import { FaRegStar, FaStar, FaStarHalf } from 'react-icons/fa';
 
 const rating = ({ value, text }) => {
 
-  // these values are hardcoded, still need to figure out how to get the users to do this
+  // these values are hardcoded, still need to figure out how to get the users to do this. using
   return (
     <div className="rating">
       <span>

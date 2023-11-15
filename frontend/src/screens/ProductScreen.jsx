@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import products from '../products';
+// import products from '../products';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import {
   ListGroup,
@@ -17,9 +19,19 @@ import rating from '../components/rating';
 // will stry and chnage this for Admin to add products
 
 const ProductScreen = () => {
+  const [product, setProduct] = useState({});
   const { id: productId } = useParams();
-  const product = products.find((p) => p._id === productId);
-  console.log(product);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [productId]);
+  // const { id: productId } = useParams();
+  // const product = products.find((p) => p._id === productId);
+  // console.log(product);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -69,7 +81,7 @@ const ProductScreen = () => {
                   <Button
                     className="btn-block"
                     type="button"
-                    disabled={products.countInStock === 0}
+                    disabled={product.countInStock === 0}
                   >
                     {' '}
                     Add to Cart
