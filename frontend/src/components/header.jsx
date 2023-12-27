@@ -41,6 +41,12 @@ const Header = () => {
                   Sign In
                 </Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/product">
+                <Nav.Link>
+                  <FaUser />
+                  Admin
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>

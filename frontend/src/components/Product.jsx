@@ -8,21 +8,21 @@ const Product = ({ product }) => {
     
     <Card className="my-3 p-3 rounde">
       <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} variant="top" />
+        <Card.Img src={product.MyImage} variant="top" />
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
           <Card.Title as="div">
-            <strong>{product.name}</strong>
+            <strong>{product.MyName}</strong>
           </Card.Title>
         </Link>
         <Card.Text as="div">
           <Rating
-            value={product.rating}
-            text={`${product.numReviews} reviews`}
+            value={product.MyRating}
+            text={`${product.MyNumReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as="h3">£{product.price}</Card.Text>
+        <Card.Text as="h3">£{product.MyPrice}</Card.Text>
       </Card.Body>
     </Card>
   );

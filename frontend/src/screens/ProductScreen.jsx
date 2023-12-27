@@ -39,26 +39,26 @@ const ProductScreen = () => {
       </Link>
       <Row>
         <Col md={5}>
-          <Image src={product.image} alt={product.name} fluid />
+          <Image src={product.MyImage} alt={product.MyName} fluid />
         </Col>
         <Col md={4}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h3>{product.name}</h3>
+              <h3>{product.MyName}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <rating
-                value={product.rating}
-                text={`${product.numReviews} reviews`}
+                value={product.MyRating}
+                text={`${product.MyNumReviews} reviews`}
               />
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>Price:</strong> £{product.price}
+              <strong>Price:</strong> £{product.MyPrice}
             </ListGroup.Item>
             <ListGroup.Item>
               {' '}
               <strong>Description: </strong>
-              {product.description}
+              {product.MyDescription}
             </ListGroup.Item>
           </ListGroup>
         </Col>
@@ -73,7 +73,7 @@ const ProductScreen = () => {
                   </Col>
                   <Col>
                     <strong>
-                      {product.countInStock > 0 ? 'In stock' : ' Out of stock'}
+                      {product.MyCountInStock > 0 ? 'In stock' : ' Out of stock'}
                     </strong>
                   </Col>
                 </Row>
@@ -81,7 +81,7 @@ const ProductScreen = () => {
                   <Button
                     className="btn-block"
                     type="button"
-                    disabled={product.countInStock === 0}
+                    disabled={product.MyCountInStock === 0}
                   >
                     {' '}
                     Add to Cart
