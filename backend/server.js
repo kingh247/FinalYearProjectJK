@@ -143,11 +143,29 @@ app.get('/api/product', async (req, res) => {
 
 // Login route
 app.post('/api/login', async (req, res) => {
-  User.create(req.body)
-    .then((users) => res.json(users))
-    .catch((err) => res.json(err));
-  console.log(req.body);
+  const { username, password } = req.body;
+
+  try {
+    // Check if the username exists in the database
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Redirect to the home screen if there's a user with a matching username
+    res.redirect('http://localhost:3000'); // Adjust the URL as needed
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+// app.post('/api/login', async (req, res) => {
+//   User.create(req.body)
+//     .then((users) => res.json(users))
+//     .catch((err) => res.json(err));
+//   console.log(req.body);
+// });
 
 // Signup  route using bcrypt
 app.post('/api/signup', async (req, res) => {

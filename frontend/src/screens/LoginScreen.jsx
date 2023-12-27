@@ -5,30 +5,38 @@ const LoginScreen = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const submitHandler = (e) => {
+  const submitHandler = async(e) => {
     e.preventDefault();
+   
 
-    axios
-      .post('http://localhost:5000/api/login', { username, password })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
-
-    //  login logic here using the username and password state values
-    console.log('Logging in with:', { username, password });
-  };
-  // .then((result) => {
-  //       console.log(result);
-
-  //       // Check if the status is 200
-  //       if (result.data === 200) {
-  //         // Redirect to the home screen or the desired route
-  //         window.location.href = 'http://localhost:3000';
-  //       } else {
-  //         console.log('Login failed. Check your credentials.');
-  //       }
-  //     })
+  //   axios
+  //     .post('http://localhost:5000/api/login', { username, password })
+  //     .then((result) => console.log(result))
   //     .catch((err) => console.log(err));
-  //   }
+
+  //   //  login logic here using the username and password state values
+  //   console.log('Logging in with:', { username, password });
+    
+  // };
+  try {
+      const response = await axios.post('http://localhost:5000/api/login', {
+        username,
+        password,
+      });
+
+      console.log('Login result:', response.data);
+
+      // Check if the login was successful 
+      if (response.status === 200) {
+        // Redirect to the home screen or the desired route
+        window.location.href = 'http://localhost:3000'; 
+      } else {
+        console.log('Login failed. Check your credentials.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error.message);
+    }
+  };
 
   return (
     <div className="login-container">
