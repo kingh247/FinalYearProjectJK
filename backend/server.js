@@ -101,6 +101,7 @@ app.post('/api/users', async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
+    
   }
   console.log(req.body);
 
@@ -146,6 +147,7 @@ app.post('/api/login', async (req, res) => {
   User.create(req.body)
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
+    console.log(req.body);
 });
 
 // Signup  route using bcrypt
@@ -157,6 +159,7 @@ app.post('/api/signup', async (req, res) => {
       Users.create({ username, email, password: hash })
         .then((users) => res.json(users))
         .catch((err) => res.json(err));
+        console.log(req.body);
     })
     .catch((err) => res.json(err.message));
 });
