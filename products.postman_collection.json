@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "cf24cb11-9502-44be-aca0-7283df60e13f",
+		"name": "products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21628574",
+		"_collection_link": "https://restless-escape-724246.postman.co/workspace/MyProjectJK~094f42a5-9e89-4558-8ebb-234baad6ce70/collection/21628574-cf24cb11-9502-44be-aca0-7283df60e13f?action=share&source=collection_link&creator=21628574"
+	},
+	"item": [
+		{
+			"name": "Get all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  products by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  Db products by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products/657affeb6d7363617da410e3/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products",
+						"657affeb6d7363617da410e3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n  \"MyName\":\"test john kingh3\",\r\n  \"MyImage\": \"/images/me.jpg\",\r\n  \"MyDescription\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam\",\r\n  \"MyBrand\": \"Add your brand\",\r\n  \"MyCategory\": \"Add your category \",\r\n  \"MyPrice\": 15.0,\r\n  \"MyCountInStock\": 11,\r\n  \"MyRating\": 4.0,\r\n  \"MyNumReviews\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/product",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/product",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"AdminUser5cg5tt5\",\r\n  \"password\": \"admin@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"AdminUseJohnKingh3\",\r\n  \"password\": \"adminemai\",\r\n  \"email\": \"admin@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/signup",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Signup",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/signup",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
