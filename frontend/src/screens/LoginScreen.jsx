@@ -5,20 +5,19 @@ const LoginScreen = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const submitHandler = async(e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-   
 
-  //   axios
-  //     .post('http://localhost:5000/api/login', { username, password })
-  //     .then((result) => console.log(result))
-  //     .catch((err) => console.log(err));
+    //   axios
+    //     .post('http://localhost:5000/api/login', { username, password })
+    //     .then((result) => console.log(result))
+    //     .catch((err) => console.log(err));
 
-  //   //  login logic here using the username and password state values
-  //   console.log('Logging in with:', { username, password });
-    
-  // };
-  try {
+    //   //  login logic here using the username and password state values
+    //   console.log('Logging in with:', { username, password });
+
+    // };
+    try {
       const response = await axios.post('http://localhost:5000/api/login', {
         username,
         password,
@@ -26,10 +25,10 @@ const LoginScreen = () => {
 
       console.log('Login result:', response.data);
 
-      // Check if the login was successful 
+      // Check if the login was successful
       if (response.status === 200) {
         // Redirect to the home screen or the desired route
-        window.location.href = 'http://localhost:3000'; 
+        window.location.href = 'http://localhost:3000';
       } else {
         console.log('Login failed. Check your credentials.');
       }

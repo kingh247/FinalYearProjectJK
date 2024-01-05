@@ -33,10 +33,25 @@ app.get('/api/products', (req, res) => {
   }
 });
 
-// List one product by placeholder p._id
-app.get('/api/products/:id', (req, res) => {
+// List one product by placeholder p._id from sever api
+// app.get('/api/products/:id', (req, res) => {
+//   try {
+//     const product = products.find((p) => p._id == req.params.id);
+//     if (product) {
+//       res.json(product);
+//     } else {
+//       res.status(404).json({ error: 'Product not found' });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+// get product id from mongo database, passing in the Product mongoose schema
+app.get('/api/product/:id', async (req, res) => {
   try {
-    const product = products.find((p) => p._id == req.params.id);
+    const product = await Product.findById(req.params.id);
+
     if (product) {
       res.json(product);
     } else {
@@ -171,7 +186,7 @@ app.post('/api/login', async (req, res) => {
 app.post('/api/signup', async (req, res) => {
   const { username, email, password } = req.body;
   bcrypt
-    .hash(password, 10)
+    .hash(password, 10) // using salt
     .then((hash) => {
       Users.create({ username, email, password: hash })
         .then((users) => res.json(users))

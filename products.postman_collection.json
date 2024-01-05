@@ -68,7 +68,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n  \"MyName\":\"test john kingh3\",\r\n  \"MyImage\": \"/images/me.jpg\",\r\n  \"MyDescription\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam\",\r\n  \"MyBrand\": \"Add your brand\",\r\n  \"MyCategory\": \"Add your category \",\r\n  \"MyPrice\": 15.0,\r\n  \"MyCountInStock\": 11,\r\n  \"MyRating\": 4.0,\r\n  \"MyNumReviews\": 5\r\n}",
+					"raw": " {\r\n  \"MyName\":\"test Laptop\",\r\n  \"MyImage\": \"/images/laptop.jpg\",\r\n  \"MyDescription\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam\",\r\n  \"MyBrand\": \"Dell\",\r\n  \"MyCategory\": \"Add your category \",\r\n  \"MyPrice\": 15.0,\r\n  \"MyCountInStock\": 11,\r\n  \"MyRating\": 4.0,\r\n  \"MyNumReviews\": 5\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,12 +93,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/product",
+					"raw": "{{baseUrl}}/product/6582f6f5a11ac545df6b419a",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"product"
+						"product",
+						"6582f6f5a11ac545df6b419a"
 					]
 				}
 			},

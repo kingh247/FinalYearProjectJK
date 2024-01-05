@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 // import products from '../products';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -13,7 +13,7 @@ import {
   Button,
   ListGroupItem,
 } from 'react-bootstrap';
-import rating from '../components/rating';
+import Rating from '../components/rating';
 
 // using hardcoded values from products.js array. then getting them here by there _id.
 // will stry and chnage this for Admin to add products
@@ -21,17 +21,40 @@ import rating from '../components/rating';
 const ProductScreen = () => {
   const [product, setProduct] = useState({});
   const { id: productId } = useParams();
+  const history = useNavigate();
 
   useEffect(() => {
+    //this is getting the id from mongo
     const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${productId}`);
-      setProduct(data);
+      try {
+        const { data } = await axios.get(`/api/product/${productId}`);
+        console.log('Fetched Product:', data);
+        setProduct(data);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
     };
     fetchProduct();
   }, [productId]);
+
+  // useEffect(() => {
+  //   // fromt he server api product data
+  //   const fetchProduct = async () => {
+  //     const { data } = await axios.get(`/api/products/${productId}`);
+  //     setProduct(data);
+  //     console.log('Fetched Product:', data);
+  //   };
+  //   fetchProduct();
+  // }, [productId]);
   // const { id: productId } = useParams();
   // const product = products.find((p) => p._id === productId);
   // console.log(product);
+
+  const addToCartHandler = () => {
+    //  add the product to the cart
+    // For now, let's just redirect to the CartScreen
+    history('/cart');
+  };
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -47,7 +70,7 @@ const ProductScreen = () => {
               <h3>{product.MyName}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              <rating
+              <Rating
                 value={product.MyRating}
                 text={`${product.MyNumReviews} reviews`}
               />
@@ -73,7 +96,9 @@ const ProductScreen = () => {
                   </Col>
                   <Col>
                     <strong>
-                      {product.MyCountInStock > 0 ? 'In stock' : ' Out of stock'}
+                      {product.MyCountInStock > 0
+                        ? 'In stock'
+                        : ' Out of stock'}
                     </strong>
                   </Col>
                 </Row>
@@ -82,6 +107,7 @@ const ProductScreen = () => {
                     className="btn-block"
                     type="button"
                     disabled={product.MyCountInStock === 0}
+                    onClick={addToCartHandler}
                   >
                     {' '}
                     Add to Cart
