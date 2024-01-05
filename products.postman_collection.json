@@ -149,6 +149,24 @@
 			"response": []
 		},
 		{
+			"name": "Get Users by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/6582d3ec2e1ca0ec8f76c391",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"6582d3ec2e1ca0ec8f76c391"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add Signup",
 			"request": {
 				"method": "POST",

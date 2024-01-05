@@ -61,6 +61,20 @@ app.get('/api/product/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+// get user id from mongo database, passing in the User mongoose schema
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'Product not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // insert product to database using post
 // app.get('/api/product', async (req, res) => {
