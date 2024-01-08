@@ -15,16 +15,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import ProductListScreen from './screens/ProductListScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import LoginScreen from './screens/LoginScreen';
 import CartScreen from './screens/CartScreen';
 import AdminPage from './screens/Adminpage';
+import EditProductScreen from './screens/EditProductScreen';
 // added this and then ran it in below and removed the <App />
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/product/:id" element={<ProductScreen />} />
+      <Route path="/productlist" element={<ProductListScreen />} />
+      <Route path="/EditProductScreen/:id" element={<EditProductScreen />} />
       <Route path="/aboutUs" element={<AboutUs />} />
       <Route path="/product" element={<AdminPage />} />
       <Route path="/features" element={<Features />} />

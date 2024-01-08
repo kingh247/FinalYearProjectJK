@@ -47,6 +47,12 @@ const Header = () => {
                   Admin
                 </Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/productList">
+                <Nav.Link>
+                  <FaUser />
+                  AdminProductList
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>

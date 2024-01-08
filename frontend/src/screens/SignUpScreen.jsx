@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const SignUpScreen = () => {
+  // State to hold the username and password entered by the user
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,6 +10,7 @@ const SignUpScreen = () => {
   const [secrectKey, setSecrectKey] = useState('');
 
   const submitHandler = (e) => {
+    // to make sure only an Admn can log in
     if (userType === 'Admin' && secrectKey !== '1234') {
       e.preventDefault();
       alert('invalid Admin');

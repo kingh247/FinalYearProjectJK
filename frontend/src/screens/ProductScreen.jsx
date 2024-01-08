@@ -15,7 +15,6 @@ import {
 } from 'react-bootstrap';
 import Rating from '../components/rating';
 
-// using hardcoded values from products.js array. then getting them here by there _id.
 // will stry and chnage this for Admin to add products
 
 const ProductScreen = () => {

@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const LoginScreen = () => {
+  // State to hold the username and password entered by the user
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
+  // to handle form submission
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
+      // Making a POST request to the login API endpoint
       const response = await axios.post('http://localhost:5000/api/login', {
         username,
         password,

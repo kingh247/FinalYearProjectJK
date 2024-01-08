@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const HomeScreen = () => {
+  // State to hold the products data fetched from the server
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    // Function to fetch products data from the server
     const fetchProducts = async () => {
-      // const { data } = await axios.get('/api/products'); // test data in backend
+      // const { data } = await axios.get('/api/products'); // test data in backend products.js
       const { data } = await axios.get('/api/product'); // data coming from mongodb
       setProducts(data);
     };
