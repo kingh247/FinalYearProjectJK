@@ -8,23 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "Get all products",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/products",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"products"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get  products by ID",
 			"request": {
 				"method": "GET",
@@ -88,31 +71,60 @@
 			"response": []
 		},
 		{
-			"name": "Get product",
+			"name": "Get all products",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/product/6582f6f5a11ac545df6b419a",
+					"raw": "{{baseUrl}}/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/product/6582f67b66c0608bcc106569",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"product",
-						"6582f6f5a11ac545df6b419a"
+						"6582f67b66c0608bcc106569"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Add user",
+			"name": "Update product",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"AdminUser5cg5tt5\",\r\n  \"password\": \"admin@email.com\"\r\n}",
+					"raw": "{\r\n    \"MyName\": \"Updated John kingh\",\r\n    \"MyImage\": \"/images/me.jpg\",\r\n    \"MyBrand\": \"Add your brand\",\r\n    \"MyCategory\": \"Add your category \",\r\n    \"MyDescription\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam\",\r\n    \"MyRating\": 4,\r\n    \"MyNumReivews\": 0,\r\n    \"MyPrice\": 13,\r\n    \"ProductCount\": 0,\r\n    \"__v\": 0\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -120,90 +132,31 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/users",
+					"raw": "{{baseUrl}}/product/6582f67b66c0608bcc106569",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"users"
+						"product",
+						"6582f67b66c0608bcc106569"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Users",
+			"name": "Delete product",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/users",
+					"raw": "{{baseUrl}}/product/6582f54b263bfe298e19345e",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Users by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/users/6582d3ec2e1ca0ec8f76c391",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"users",
-						"6582d3ec2e1ca0ec8f76c391"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add Signup",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"AdminUseJohnKingh3\",\r\n  \"password\": \"adminemai\",\r\n  \"email\": \"admin@email.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/signup",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Signup",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/signup",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"signup"
+						"product",
+						"6582f54b263bfe298e19345e"
 					]
 				}
 			},

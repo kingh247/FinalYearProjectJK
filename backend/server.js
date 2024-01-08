@@ -69,9 +69,24 @@ app.get('/api/users/:id', async (req, res) => {
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ error: 'Product not found' });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+// Delete user by ID
+app.delete('/api/users/:id', async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+    if (deletedUser) {
+      res.json({ message: 'User deleted successfully', deletedUser });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -109,6 +124,7 @@ app.get('/api/users/:id', async (req, res) => {
 
 // insert product to database using post
 app.post('/api/product', async (req, res) => {
+  // insert product to database using post
   try {
     const product = await Product.create(req.body);
     res.status(200).json(product);
@@ -119,6 +135,40 @@ app.post('/api/product', async (req, res) => {
   console.log(req.body);
 
   // res.send(req.body);
+});
+
+// Delete product by ID
+app.delete('/api/product/:id', async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (deletedProduct) {
+      res.json({ message: 'Product deleted successfully', deletedProduct });
+    } else {
+      res.status(404).json({ error: 'Product not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Update product by ID
+app.put('/api/product/:id', async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } // Returns the modified document rather than the original
+    );
+
+    if (updatedProduct) {
+      res.json({ message: 'Product updated successfully', updatedProduct });
+    } else {
+      res.status(404).json({ error: 'Product not found' });
+    }
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // insert users to database using post
@@ -134,6 +184,25 @@ app.post('/api/users', async (req, res) => {
   console.log(req.body);
 
   //res.send(req.body);
+});
+// Update user by ID
+app.put('/api/users/:id', async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } // Returns the modified document rather than the original
+    );
+
+    if (updatedUser) {
+      res.json({ message: 'User updated successfully', updatedUser });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // // insert signup to database using post without bycrpt
@@ -181,8 +250,6 @@ app.post('/api/login', async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
-    // Redirect to the home screen if there's a user with a matching username
     res.redirect('http://localhost:3000'); // Adjust the URL as needed
   } catch (error) {
     console.error('Error during login:', error);
@@ -198,11 +265,12 @@ app.post('/api/login', async (req, res) => {
 
 // Signup  route using bcrypt
 app.post('/api/signup', async (req, res) => {
-  const { username, email, password } = req.body;
+  // Signup  route using bcrypt
+  const { username, email, password, userType } = req.body;
   bcrypt
     .hash(password, 10) // using salt
     .then((hash) => {
-      Users.create({ username, email, password: hash })
+      Users.create({ username, email, password: hash, userType })
         .then((users) => res.json(users))
         .catch((err) => res.json(err));
       console.log(req.body);

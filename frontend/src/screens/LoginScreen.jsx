@@ -8,15 +8,6 @@ const LoginScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    //   axios
-    //     .post('http://localhost:5000/api/login', { username, password })
-    //     .then((result) => console.log(result))
-    //     .catch((err) => console.log(err));
-
-    //   //  login logic here using the username and password state values
-    //   console.log('Logging in with:', { username, password });
-
-    // };
     try {
       const response = await axios.post('http://localhost:5000/api/login', {
         username,
@@ -27,8 +18,18 @@ const LoginScreen = () => {
 
       // Check if the login was successful
       if (response.status === 200) {
-        // Redirect to the home screen or the desired route
-        window.location.href = 'http://localhost:3000';
+        // Check userType from the response
+        const { userType } = response.data;
+
+        // Redirect based on userType
+        if (!userType === 'Admin') {
+          console.log('Login result:', userType);
+          // Redirect to the admin dashboard
+          window.location.href = 'http://localhost:3000/product';
+        } else {
+          // Redirect to the home screen
+          window.location.href = 'http://localhost:3000';
+        }
       } else {
         console.log('Login failed. Check your credentials.');
       }
