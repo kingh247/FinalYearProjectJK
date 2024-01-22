@@ -28,7 +28,7 @@ const LoginScreen = () => {
         if (!userType === 'Admin') {
           console.log('Login result:', userType);
           // Redirect to the admin dashboard
-          window.location.href = 'http://localhost:3000/product';
+          window.location.href = 'http://localhost:3000/admin';
         } else {
           // Redirect to the home screen
           window.location.href = 'http://localhost:3000';

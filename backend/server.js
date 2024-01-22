@@ -9,6 +9,7 @@ import Users from './Schema/MyLogin.js';
 import Product from './Schema/Product.js';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
+import Order from './Schema/MyOrder.js';
 
 const port = 5000;
 // intialize express
@@ -185,10 +186,10 @@ app.post('/api/users', async (req, res) => {
 
   //res.send(req.body);
 });
-// Update user by ID
+// Update user by ID by using the Users schema
 app.put('/api/users/:id', async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = await Users.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true } // Returns the modified document rather than the original
@@ -277,6 +278,7 @@ app.post('/api/signup', async (req, res) => {
     })
     .catch((err) => res.json(err.message));
 });
+
 // // Manually add a user to the database
 // const hardcodedUser = new User({
 //   username: 'nnnnnn_kingh@live.co.uk',

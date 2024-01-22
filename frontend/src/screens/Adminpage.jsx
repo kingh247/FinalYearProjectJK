@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AdminPage = () => {
+  const navigate = useNavigate(); // for back button
+
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState('');
   const [productBrand, setProductBrand] = useState('');
@@ -34,6 +37,10 @@ const AdminPage = () => {
     }
   };
 
+  const goBackToAdminPanel = () => {
+    // Use navigate function to go back to the admin panel
+    navigate('/admin'); // Replace '/admin-panel' with the actual route for your admin panel
+  };
   return (
     <div className="admin-container">
       <div className="admin-card">
@@ -139,6 +146,8 @@ const AdminPage = () => {
 
           <button type="submit">Add Product</button>
         </form>
+        <button onClick={goBackToAdminPanel}>Back to Admin Panel</button>
+        
       </div>
     </div>
   );

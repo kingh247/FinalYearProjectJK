@@ -12,7 +12,7 @@ const EditProductScreen = () => {
     MyPrice: 0,
     MyDescription: '',
   });
-  const history = useNavigate();
+  const history = useNavigate(); // for back button
 
   useEffect(() => {
     // Fetch the details of the product for editing
@@ -35,6 +35,7 @@ const EditProductScreen = () => {
   const handleChange = (e) => {
     // Update the form data as the user types
     setFormData({
+      // Using the spread operator (...) to create a shallow copy of the existing formData
       ...formData,
       [e.target.name]: e.target.value,
     });
@@ -51,6 +52,10 @@ const EditProductScreen = () => {
     } catch (error) {
       console.error('Error updating product:', error);
     }
+  };
+  const goBackToAdminPage = () => {
+    // Use navigate function to go back to the admin page
+    history('/productList'); // Replace '/admin-page' with the actual route for your admin page
   };
 
   return (
@@ -96,6 +101,8 @@ const EditProductScreen = () => {
         <Button variant="primary" type="submit">
           Update Product
         </Button>
+        {/* Add the back button */}
+        <Button onClick={goBackToAdminPage}>Back to Product List</Button>
       </Form>
     </>
   );

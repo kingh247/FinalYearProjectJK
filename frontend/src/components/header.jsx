@@ -41,16 +41,10 @@ const Header = () => {
                   Sign In
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/product">
+              <LinkContainer to="/admin">
                 <Nav.Link>
                   <FaUser />
                   Admin
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/productList">
-                <Nav.Link>
-                  <FaUser />
-                  AdminProductList
                 </Nav.Link>
               </LinkContainer>
             </Nav>

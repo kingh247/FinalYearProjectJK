@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 
 const ProductListScreen = () => {
   const [products, setProducts] = useState([]);
+   
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,6 +19,8 @@ const ProductListScreen = () => {
     fetchProducts();
   }, []);
 
+   const history = useNavigate();// for back button
+
   const handleDelete = async (productId) => {
     try {
       await axios.delete(`/api/product/${productId}`);
@@ -28,6 +31,11 @@ const ProductListScreen = () => {
     } catch (error) {
       console.error('Error deleting product:', error);
     }
+  };
+
+  const goBackToAdminPage = () => {
+    // Use navigate function to go back to the admin page
+    history('/admin'); // Replace '/admin-page' with the actual route for your admin page
   };
 
   return (
@@ -65,6 +73,7 @@ const ProductListScreen = () => {
           ))}
         </tbody>
       </Table>
+      <Button onClick={goBackToAdminPage}>Back to Admin Page</Button>
     </>
   );
 };

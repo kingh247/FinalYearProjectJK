@@ -21,6 +21,9 @@ import LoginScreen from './screens/LoginScreen';
 import CartScreen from './screens/CartScreen';
 import AdminPage from './screens/Adminpage';
 import EditProductScreen from './screens/EditProductScreen';
+import UserListScreen from './screens/UserListScreen';
+import EditUserScreen from './screens/EditUserScreen';
+import AdminDashboard from './screens/AdminDashboard';
 // added this and then ran it in below and removed the <App />
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +32,9 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductScreen />} />
       <Route path="/productlist" element={<ProductListScreen />} />
       <Route path="/EditProductScreen/:id" element={<EditProductScreen />} />
+      <Route path="/EditUserScreen/:id" element={<EditUserScreen />} />
+      <Route path="/UserListScreen" element={<UserListScreen />} />
+      <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/aboutUs" element={<AboutUs />} />
       <Route path="/product" element={<AdminPage />} />
       <Route path="/features" element={<Features />} />
