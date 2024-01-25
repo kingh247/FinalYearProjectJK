@@ -47,6 +47,7 @@ const ProductListScreen = () => {
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Count</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
@@ -57,6 +58,7 @@ const ProductListScreen = () => {
               <td>{product._id}</td>
               <td>{product.MyName}</td>
               <td>{product.MyPrice}</td>
+              <td>{product.ProductCount}</td>
               <td>{product.MyDescription}</td>
               <td>
                 <Link to={`/EditProductScreen/${product._id}`}>

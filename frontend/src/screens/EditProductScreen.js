@@ -87,6 +87,16 @@ const EditProductScreen = () => {
           />
         </Form.Group>
 
+        <Form.Group controlId="count">
+          <Form.Label>Count</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Enter product count"
+            name="ProductCount"
+            value={formData.ProductCount}
+            onChange={handleChange}
+          />
+        </Form.Group>
         <Form.Group controlId="description">
           <Form.Label>Description</Form.Label>
           <Form.Control
