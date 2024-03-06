@@ -1,9 +1,39 @@
+// import React from 'react';
+// const Features = () => {
+//   return (
+//     <>
+//       <h1> Features </h1>
+//       <div>
+//         <p>
+//           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+//           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+//           aliquip ex ea commodo consequat. Duis aute irure dolor in
+//           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+//           culpa qui officia deserunt mollit anim id est laborum .
+//         </p>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default Features;
 import React from 'react';
+import featureImage from '../assets/logo.jpg'; // Adjust the path and file extension
+
+
 const Features = () => {
   return (
     <>
       <h1> Features </h1>
-      <div>
+      <div style={{ textAlign: 'center' }}>
+        <img
+          src={featureImage}
+          alt=""
+          style={{ width: '100%', maxWidth: '300px', margin: '0 auto' }}
+        />
+
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -11,7 +41,7 @@ const Features = () => {
           aliquip ex ea commodo consequat. Duis aute irure dolor in
           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum .
+          culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </div>
     </>

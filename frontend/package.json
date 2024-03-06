@@ -19,12 +19,15 @@
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "react-test-renderer": "^18.2.0",
+    "save-dev": "^0.0.1-security",
+    "vitest": "^1.2.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "jest --collectCoverage",
+    "tests": "react-scripts test --coverage --transformIgnorePatterns 'node_modules/(?!axios)/'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

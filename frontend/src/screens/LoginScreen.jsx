@@ -25,7 +25,7 @@ const LoginScreen = () => {
         const { userType } = response.data;
 
         // Redirect based on userType
-        if (!userType === 'Admin') {
+        if (response.userType === 'Admin') {
           console.log('Login result:', userType);
           // Redirect to the admin dashboard
           window.location.href = 'http://localhost:3000/admin';

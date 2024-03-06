@@ -130,7 +130,8 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 // import products from '../products';
 import { useGetProductDetailsQuery } from '../slices/productApiSlice';
-
+import { useDispatch } from'react-redux';
+import { addItem } from '../slices/cartSlice';
 import {
   ListGroup,
   Row,
@@ -149,6 +150,8 @@ const ProductScreen = () => {
   const { id: productId } = useParams();
 
   const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
+  
 
   const {
     data: product,
@@ -165,10 +168,10 @@ const ProductScreen = () => {
     return <p>Error loading products</p>;
   }
 
-  const addToCartHandler = () => {
-    //  add the product to the cart
-    // For now, let's just redirect to the CartScreen
+  const addToCartHandler =()=>{
+    dispatch(addItem({ ...product, qty }));
     history('/cart');
+  
   };
   return (
     <>

@@ -240,7 +240,6 @@ app.get('/api/product', async (req, res) => {
   res.json(data);
 });
 
-// Login route
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -248,21 +247,21 @@ app.post('/api/login', async (req, res) => {
     // Check if the username exists in the database
     const user = await User.findOne({ username });
 
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+    if (user.userType === 'Admin') {
+      return res.json({ message: 'Login successful', user });
+      // return res.status(401).json({ error: 'Invalid credentials' });
     }
-    res.redirect('http://localhost:3000'); // Adjust the URL as needed
+
+    // Replace the following line with actual token generation and sending logic
+    // return res.json({ message: 'Login successful', user });
+    if (user.userType === 'Admin') {
+      return res.redirect('http://localhost:3000/admin'); // Replace with the actual admin dashboard URL
+    }
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-// app.post('/api/login', async (req, res) => {
-//   User.create(req.body)
-//     .then((users) => res.json(users))
-//     .catch((err) => res.json(err));
-//   console.log(req.body);
-// });
 
 // Signup  route using bcrypt
 app.post('/api/signup', async (req, res) => {
