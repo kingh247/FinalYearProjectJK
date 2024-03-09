@@ -45,11 +45,10 @@ const cartSlice = createSlice({
       // save to local storage
       localStorage.setItem('cart', JSON.stringify(state));
     },
+
     removeItem: (state, action) => {
-      const itemIndex = state.items.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      state.items.splice(itemIndex, 1);
+      state.items = state.items.filter((i) => i._id!== action.payload);
+      
     },
   },
   // reducers: {

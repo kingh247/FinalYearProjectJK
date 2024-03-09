@@ -9,7 +9,7 @@ const AboutUs = () => {
         <img
           src={featureImage} 
           alt=""
-          style={{ width: '100%', maxWidth: '300px', margin: '0 auto' }}
+          style={{ width: '100%', maxWidth: '730px', margin: '0 auto' }}
         />
       </div>
       <div>

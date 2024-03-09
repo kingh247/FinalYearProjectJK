@@ -31,7 +31,7 @@ const Features = () => {
         <img
           src={featureImage}
           alt=""
-          style={{ width: '100%', maxWidth: '300px', margin: '0 auto' }}
+          style={{ width: '100%', maxWidth: '770px', margin: '0 auto' }}
         />
 
         <p>
