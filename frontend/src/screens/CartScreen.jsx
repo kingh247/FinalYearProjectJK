@@ -26,6 +26,9 @@ const ShoppingCartScreen = () => {
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
   };
+   const checkoutHandler = async (id) => {
+     navigate('/login?redirect=shipping');
+   };
 
   return (
     <Row>
@@ -104,6 +107,7 @@ const ShoppingCartScreen = () => {
                 type="button"
                 classname="btn-block"
                 disabaled={items.length === 0}
+                onClick={checkoutHandler}
               >
                 Proceed to Checkout
               </Button>
