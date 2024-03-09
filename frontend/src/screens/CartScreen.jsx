@@ -42,7 +42,7 @@ const ShoppingCartScreen = () => {
                     />
                   </Col>
                   <Col md={3}>
-                    <Link>{item.MyName}</Link>
+                    <Link to={`/product/${item._id}`}>{item.MyName}</Link>
                   </Col>
                   <Col md={2}>
                     <Link>£{item.MyPrice}</Link>
@@ -70,6 +70,17 @@ const ShoppingCartScreen = () => {
             ))}
           </ListGroup> // display the items in the cart
         )}
+      </Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup>
+            <h2>Total ({items.reduce((ac, item) => ac + item.qty, 0)})items</h2>
+            £
+            {items
+              .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
+              .toFixed(2)}
+          </ListGroup>
+        </Card>
       </Col>
     </Row>
   );
