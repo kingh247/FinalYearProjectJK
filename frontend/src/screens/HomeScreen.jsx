@@ -37,13 +37,14 @@
 
 /// this is usiing the Redux tool kit instead of axios and use effect getting stuff from database
 
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Col, Form } from 'react-bootstrap';
 import Product from '../components/Product';
 import { useGetProductsQuery } from '../slices/productApiSlice';
 
 const HomeScreen = () => {
   const { data: products, isLoading, isError } = useGetProductsQuery();
+  const [searchQuery, setSearchQuery] = useState('');
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -52,13 +53,24 @@ const HomeScreen = () => {
   if (isError) {
     return <p>Error loading products</p>;
   }
-
+  const filteredProducts = products.filter(
+    (product) =>
+      product.MyName.toLowerCase().includes(searchQuery.toLowerCase()) // searching through the products
+  );
   return (
     <>
       <h1>My Products</h1>
+      <Form.Group controlId="search">
+        <Form.Control
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </Form.Group>
       <Row>
         {products &&
-          products.map((product) => (
+          filteredProducts.map((product) => (
             <Col key={product._id} sm={12} md={16} lg={4} xl={3}>
               <Product product={product} />
             </Col>
