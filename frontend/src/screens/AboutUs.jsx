@@ -1,17 +1,26 @@
 import React from 'react';
 import featureImage from '../assets/logo.jpg'; // Adjust the path and file extension
-
+import Video from '../assets/video/video.mp4';
 const AboutUs = () => {
   return (
     <>
       <h1> About Us </h1>
-      <div style={{ textAlign: 'center' }}>
+      <div>
+        <video
+          src={Video}
+          autoPlay
+          loop
+          muted
+          style={{ width: '100%', maxWidth: '100%', margin: '0 auto' }}
+        />
+      </div>
+      {/* <div style={{ textAlign: 'center' }}>
         <img
-          src={featureImage} 
+          src={featureImage}
           alt=""
           style={{ width: '100%', maxWidth: '730px', margin: '0 auto' }}
         />
-      </div>
+      </div> */}
       <div>
         <p>
           Final year student trying to build a generic emcomerce webite that can

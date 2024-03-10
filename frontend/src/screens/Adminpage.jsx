@@ -36,6 +36,18 @@ const AdminPage = () => {
       console.error('Error adding product:', error);
     }
   };
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setProductImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const goBackToAdminPanel = () => {
     // Use navigate function to go back to the admin panel
@@ -60,10 +72,10 @@ const AdminPage = () => {
           <div className="form-group">
             <label htmlFor="productImage">Product Image URL:</label>
             <input
-              type="text"
+              type="file"
               id="productImage"
-              value={productImage}
-              onChange={(e) => setProductImage(e.target.value)}
+              onChange={handleImageUpload}
+              accept="image/*"
               required
             />
           </div>
@@ -93,6 +105,7 @@ const AdminPage = () => {
           <div className="form-group">
             <label htmlFor="productDescription">Product Description:</label>
             <textarea
+              style={{ width: '1300px' }} // Adjust the width as needed
               id="productDescription"
               value={productDescription}
               onChange={(e) => setProductDescription(e.target.value)}
@@ -147,7 +160,6 @@ const AdminPage = () => {
           <button type="submit">Add Product</button>
         </form>
         <button onClick={goBackToAdminPanel}>Back to Admin Panel</button>
-        
       </div>
     </div>
   );
