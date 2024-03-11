@@ -11,7 +11,7 @@ describe('AdminDashboard', () => {
     ).toBeInTheDocument();
   });
 
-  test('renders manage products button', () => {
+  test('renders manages products button', () => {
     render(<AdminDashboard />, { wrapper: MemoryRouter });
     expect(
       screen.getByRole('button', { name: /manage products/i })

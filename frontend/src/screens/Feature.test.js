@@ -21,7 +21,7 @@ describe('Features', () => {
     expect(paragraph).toBeInTheDocument();
   });
 
-  test('matches snapshot', () => {
+  test('matches snapshots', () => {
     const { asFragment } = render(<Features />);
     expect(asFragment()).toMatchSnapshot();
   });

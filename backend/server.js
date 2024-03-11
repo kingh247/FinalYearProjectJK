@@ -7,6 +7,7 @@ import products from './data/products.js';
 import User from './Schema/MyUser.js';
 import Users from './Schema/MyLogin.js';
 import Product from './Schema/Product.js';
+import Shipping from './Schema/Shipping.js';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import Order from './Schema/MyOrder.js';
@@ -137,6 +138,20 @@ app.post('/api/product', async (req, res) => {
 
   // res.send(req.body);
 });
+// shipping
+app.post('/api/shipping', async (req, res) => {
+  // insert product to database using post
+  try {
+    const shipping = await Shipping.create(req.body);
+    res.status(200).json(shipping);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+  console.log(req.body);
+
+  // res.send(req.body);
+});
 
 // Delete product by ID
 app.delete('/api/product/:id', async (req, res) => {
@@ -240,26 +255,66 @@ app.get('/api/product', async (req, res) => {
   res.json(data);
 });
 
-app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
+// get shipping
+app.get('/api/shipping', async (req, res) => {
+  const data = await Shipping.find();
 
+  res.json(data);
+});
+app.put('/api/shipping/:id', async (req, res) => {
   try {
-    // Check if the username exists in the database
-    const user = await User.findOne({ username });
+    const updatedShipping = await Shipping.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } // Returns the modified document rather than the original
+    );
 
-    if (user.userType === 'Admin') {
-      return res.json({ message: 'Login successful', user });
-      // return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    // Replace the following line with actual token generation and sending logic
-    // return res.json({ message: 'Login successful', user });
-    if (user.userType === 'Admin') {
-      return res.redirect('http://localhost:3000/admin'); // Replace with the actual admin dashboard URL
+    if (updatedShipping) {
+      res.json({ message: 'Shipping updated successfully', updatedShipping });
+    } else {
+      res.status(404).json({ error: 'Shipping not found' });
     }
   } catch (error) {
-    console.error('Error during login:', error);
+    console.error('Error updating Shipping:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// app.post('/api/login', async (req, res) => {
+//   const { username, password } = req.body;
+
+//   try {
+//     // Check if the username exists in the database
+//     const user = await User.findOne({ username });
+
+//     if (user.userType === 'Admin') {
+//       return res.json({ message: 'Login successful', user });
+//       // return res.status(401).json({ error: 'Invalid credentials' });
+//     }
+
+//     // Replace the following line with actual token generation and sending logic
+//     // return res.json({ message: 'Login successful', user });
+//     if (user.userType === 'Admin') {
+//       return res.redirect('http://localhost:3000/admin'); // Replace with the actual admin dashboard URL
+//     }
+//   } catch (error) {
+//     console.error('Error during login:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+  // Check if the username exists in the database
+  const user = await User.findOne({ username });
+  if (user) {
+    res.json({
+      _id: user._id,
+      username: user.username,
+      userType: user.userType,
+    });
+  } else {
+    res.status(401).json({ error: 'Invalid credentials' });
+    error.message = 'Invalid credentials';
   }
 });
 
@@ -276,6 +331,20 @@ app.post('/api/signup', async (req, res) => {
       console.log(req.body);
     })
     .catch((err) => res.json(err.message));
+});
+// get user id from mongo database, passing in the User mongoose schema
+app.get('/api/shipping/:id', async (req, res) => {
+  try {
+    const shipping = await Shipping.findById(req.params.id);
+
+    if (shipping) {
+      res.json(shipping);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // // Manually add a user to the database

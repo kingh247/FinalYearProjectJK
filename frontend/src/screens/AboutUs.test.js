@@ -8,7 +8,7 @@ describe('AboutUs', () => {
     const heading = screen.getByRole('heading', { name: /about us/i });
     expect(heading).toBeInTheDocument();
   });
-  test('renders Features component with Lorem Ipsum text', () => {
+  test('renders Features components with Lorem Ipsum text', () => {
     render(<AboutUs />);
 
     expect(screen).toBeTruthy();

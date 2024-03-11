@@ -26,8 +26,11 @@ const ShoppingCartScreen = () => {
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
   };
+  // const checkoutHandler = async (id) => {
+  //   navigate('/login?redirect=shipping');
+  // };
    const checkoutHandler = async (id) => {
-     navigate('/login?redirect=shipping');
+     navigate('/shipping');
    };
 
   return (
