@@ -5,13 +5,12 @@ exports[`AboutUs matches snapshot 1`] = `
   <h1>
      About Us 
   </h1>
-  <div
-    style="text-align: center;"
-  >
-    <img
-      alt=""
-      src="logo.jpg"
-      style="width: 100%; max-width: 300px; margin: 0px auto;"
+  <div>
+    <video
+      autoplay=""
+      loop=""
+      src="video.mp4"
+      style="width: 100%; max-width: 100%; margin: 0px auto;"
     />
   </div>
   <div>

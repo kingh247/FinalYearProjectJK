@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import LoginScreen from './LoginScreen';
 import mockData from '../../../backend/mockData/getMock';
@@ -28,57 +28,55 @@ describe('LoginScreens', () => {
     // Wait for the asynchronous behavior to settle
     await waitFor(() => {
       // Assertions based on the expected behavior after a successful login
-      
+
       expect(window.location.href).toBe('http://localhost/');
     });
   });
 
-   test('navigates to user page on successful User login', async () => {
-        // Mock successful login response
-        const mockLoginResponse = {
-            status: 200,
-            data: {
-                userType: 'User'
-            }
-        };
+  test('navigates to user page on successful User login', async () => {
+    // Mock successful login response
+    const mockLoginResponse = {
+      status: 200,
+      data: {
+        userType: 'User',
+      },
+    };
 
-        jest.spyOn(axios, 'post').mockResolvedValueOnce(mockLoginResponse);
+    jest.spyOn(axios, 'post').mockResolvedValueOnce(mockLoginResponse);
 
-        render(<LoginScreen />);
+    render(<LoginScreen />);
 
-        const usernameInput = screen.getByLabelText('Username:');
-        const passwordInput = screen.getByLabelText('Password:');
-        const submitButton = screen.getByRole('button', { name: 'Login' });
+    const usernameInput = screen.getByLabelText('Username:');
+    const passwordInput = screen.getByLabelText('Password:');
+    const submitButton = screen.getByRole('button', { name: 'Login' });
 
-        await userEvent.type(usernameInput, 'User');
-        await userEvent.type(passwordInput, 'Userpass');
-        await userEvent.click(submitButton);
+    await userEvent.type(usernameInput, 'User');
+    await userEvent.type(passwordInput, 'Userpass');
+    await userEvent.click(submitButton);
 
-        expect(window.location.href).toBe('http://localhost/');
-    });
-     test('navigates to user page on successful admin login', async () => {
-       // Mock successful login response
-       const mockLoginResponse = {
-         status: 200,
-         data: {
-           userType: 'Admin',
-         },
-       };
+    expect(window.location.href).toBe('http://localhost/');
+  });
+  test('navigates to user page on successful admin login', async () => {
+    // Mock successful login response
+    const mockLoginResponse = {
+      status: 200,
+      data: {
+        userType: 'Admin',
+      },
+    };
 
-       jest.spyOn(axios, 'post').mockResolvedValueOnce(mockLoginResponse);
+    jest.spyOn(axios, 'post').mockResolvedValueOnce(mockLoginResponse);
 
-       render(<LoginScreen />);
+    render(<LoginScreen />);
 
-       const usernameInput = screen.getByLabelText('Username:');
-       const passwordInput = screen.getByLabelText('Password:');
-       const submitButton = screen.getByRole('button', { name: 'Login' });
+    const usernameInput = screen.getByLabelText('Username:');
+    const passwordInput = screen.getByLabelText('Password:');
+    const submitButton = screen.getByRole('button', { name: 'Login' });
 
-       await userEvent.type(usernameInput, 'Admin');
-       await userEvent.type(passwordInput, 'Adminpass');
-       await userEvent.click(submitButton);
+    await userEvent.type(usernameInput, 'Admin');
+    await userEvent.type(passwordInput, 'Adminpass');
+    await userEvent.click(submitButton);
 
-       expect(window.location.href).toBe('http://localhost/');
-     });
-
-
+    expect(window.location.href).toBe('http://localhost/');
+  });
 });
