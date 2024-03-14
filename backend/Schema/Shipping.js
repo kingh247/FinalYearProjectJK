@@ -24,7 +24,7 @@ const MyShippingSchema = new mongoose.Schema(
       default: 0,
     },
     country: {
-      type: Number,
+      type: String,
       required: true,
       default: 0,
     },

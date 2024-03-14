@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Table, Button, Form } from 'react-bootstrap';
+import { Table, Button, Form, Row, Col, Image } from 'react-bootstrap';
 
 const PaymentScreen = () => {
   const [shipping, setShipping] = useState([]);
+  const cart = useSelector((state) => state.cart);
+  const { items } = cart;
 
   useEffect(() => {
     const fetchShipping = async () => {
@@ -19,6 +22,22 @@ const PaymentScreen = () => {
   }, []);
 
   const history = useNavigate(); // for back button
+  const handleDelete = async (shippingId) => {
+    try {
+      await axios.delete(`/api/shipping/${shippingId}`);
+      // Update the local state to reflect the deletion
+      setShipping((prevShipping) =>
+        prevShipping.filter((shipping) => shipping._id !== shippingId)
+      );
+    } catch (error) {
+      console.error('Error deleting shipping:', error);
+    }
+  };
+
+  const totalPrice = items
+    .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
+    .toFixed(2);
+  const deliveryCharge = Number(totalPrice) * 0.1;
 
   const goBackShipping = () => {
     // Use navigate function to go back to the shipping page
@@ -56,14 +75,61 @@ const PaymentScreen = () => {
                 <td>Country:</td>
                 <td>{shippingInfo.country}</td>
               </tr>
+
               <tr>
                 <td>Actions:</td>
                 <td>
                   <Link to={`/EditPaymentScreen/${shippingInfo._id}`}>
                     <Button variant="info">Edit</Button>
                   </Link>
-                  {/* Add delete button if needed */}
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(shippingInfo._id)}
+                  >
+                    Delete
+                  </Button>
                 </td>
+              </tr>
+            </tbody>
+
+            {/* <Table>
+            <tbody>
+            <tr>
+              <td>Total Price:</td>
+              <td>{`${totalPrice}`}</td>
+            </tr>
+            </tbody>
+            </Table> */}
+          </Table>
+          <Table striped bordered hover>
+            <tbody>
+              <tr>
+                <td>Products:</td>
+                <td>
+                  {items.map((item) => (
+                    <Row key={item._id} className="align-items-center">
+                      <Col md={2}>
+                        <Image
+                          src={item.MyImage}
+                          alt={item.MyName}
+                          style={{ maxWidth: '100%', maxHeight: '100%' }}
+                        />
+                      </Col>
+                      <Col md={3}>
+                        <Link to={`/product/${item._id}`}>{item.MyName}</Link>
+                      </Col>
+                      <Col md={2}>£{item.MyPrice}</Col>
+                    </Row>
+                  ))}
+                </td>
+              </tr>
+              <tr>
+                <td>Delivery Charge:</td>
+                <td>{deliveryCharge}</td>
+              </tr>
+              <tr>
+                <td>Total Price:</td>
+                <td>{`${totalPrice}`}</td>
               </tr>
             </tbody>
           </Table>

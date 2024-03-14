@@ -279,6 +279,19 @@ app.put('/api/shipping/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+// Delete Shipping by ID
+app.delete('/api/shipping/:id', async (req, res) => {
+  try {
+    const deletedShipping = await Shipping.findByIdAndDelete(req.params.id);
+    if (deletedShipping) {
+      res.json({ message: 'Shipping deleted successfully', deletedShipping });
+    } else {
+      res.status(404).json({ error: 'Shipping not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // app.post('/api/login', async (req, res) => {
 //   const { username, password } = req.body;

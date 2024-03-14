@@ -29,8 +29,16 @@ const ShoppingCartScreen = () => {
   // const checkoutHandler = async (id) => {
   //   navigate('/login?redirect=shipping');
   // };
-   const checkoutHandler = async (id) => {
-     navigate('/shipping');
+  //  const checkoutHandler = async (id) => {
+  //    navigate('/shipping');
+  //  };
+  
+   const checkoutHandler = async () => {
+     const totalPrice = items
+       .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
+       .toFixed(2);
+
+     navigate(`/shipping?total=${totalPrice}`);
    };
 
   return (
