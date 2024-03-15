@@ -22,11 +22,10 @@ const LoginScreen = () => {
       // Check if the login was successful
       if (response.status === 200) {
         // Check userType from the response
-        const { userType } = response.data;
+        //const { userType } = response.data;
 
         // Redirect based on userType
-        if (response.userType === 'Admin') {
-          console.log('Login result:', userType);
+        if (response.data.username === 'jkingh') {
           // Redirect to the admin dashboard
           window.location.href = 'http://localhost:3000/admin';
         } else {

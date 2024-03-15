@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import { Table, Button, Form, Row, Col, Image } from 'react-bootstrap';
+import { Table, Button, Row, Col, Image } from 'react-bootstrap';
 import { removeItem } from '../slices/cartSlice';
 import { useDispatch } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
