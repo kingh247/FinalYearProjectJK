@@ -173,23 +173,6 @@ const PaymentScreen = () => {
         </PayPalScriptProvider>
       </div>
 
-      <div>
-        <h2>PayPal</h2>
-        <p></p>
-        <a
-          href="https://www.paypal.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          PayPal Payment
-        </a>
-      </div>
-
-      {/* Credit/Debit Card Section */}
-      <div>
-        <h2>Credit/Debit Card</h2>
-        <Form>{/* Your credit/debit card form fields go here */}</Form>
-      </div>
       <Button onClick={goBackShipping}>Back to Shipping</Button>
     </>
   );
