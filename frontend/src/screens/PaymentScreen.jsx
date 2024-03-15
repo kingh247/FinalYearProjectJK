@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Table, Button, Form, Row, Col, Image } from 'react-bootstrap';
 
 const PaymentScreen = () => {
@@ -137,6 +138,41 @@ const PaymentScreen = () => {
       ))}
 
       {/* PayPal Section */}
+      <div>
+        <h2>PayPal</h2>
+        <PayPalScriptProvider>
+          <PayPalButtons>
+            createOrder=
+            {(data, actions) => {
+              // This function sets up the details of the transaction
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: totalPrice, // The total amount to be paid
+                      currency_code: 'Sterling', // Change to your currency code
+                    },
+                  },
+                ],
+              });
+            }}
+            onApprove=
+            {(data, actions) => {
+              // This function captures the funds from the transaction
+              return actions.order.capture().then(function (details) {
+                // Call your backend to save the transaction details
+                // Redirect or display a success message to the user
+              });
+            }}
+            onError=
+            {(err) => {
+              // Handle errors here
+              console.error(err);
+            }}
+          </PayPalButtons>
+        </PayPalScriptProvider>
+      </div>
+
       <div>
         <h2>PayPal</h2>
         <p></p>
