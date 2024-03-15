@@ -5,10 +5,11 @@ import Rating from './rating';
 
 const Product = ({ product }) => {
   return (
-    <Card className="my-3 p-3 rounded">
+    //set all columns all the same length
+    <Card className="my-3 p-3 rounded" style={{ height: '100%' }}>
       <a href={`/product/${product._id}`}>
         <Card.Img
-          src={product.MyImage} 
+          src={product.MyImage}
           variant="top"
           style={{ objectFit: 'cover', width: '100%', height: '200px' }} //set all images the same size
         />

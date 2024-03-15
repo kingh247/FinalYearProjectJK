@@ -10,6 +10,7 @@ import { FaTrash } from 'react-icons/fa';
 
 const PaymentScreen = () => {
   const [shipping, setShipping] = useState([]);
+  // redux cart
   const cart = useSelector((state) => state.cart);
   const { items } = cart;
   const dispatch = useDispatch();
@@ -39,14 +40,14 @@ const PaymentScreen = () => {
     }
   };
 
+  // from redux cart
   const totalPrice = items
     .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
     .toFixed(2);
   const deliveryCharge = Number(totalPrice * 0.1).toFixed(2);
 
   const goBackShipping = () => {
-    // Use navigate function to go back to the shipping page
-    history('/cart'); // Replace '/shipping' with the actual route for your shipping page
+    history('/cart'); 
   };
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
