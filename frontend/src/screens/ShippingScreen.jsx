@@ -125,7 +125,7 @@ const ShippingScreen = () => {
   return (
     <div className="admin-container">
       <div className="admin-card">
-        <h2>Add Shipping (Admin)</h2>
+        <h2>Add Shipping</h2>
         <form onSubmit={submitHandler}>
           <div className="form-group">
             <label htmlFor="shippingName">Full Name:</label>

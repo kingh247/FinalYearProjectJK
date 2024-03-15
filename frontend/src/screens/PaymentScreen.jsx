@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Table, Button, Form, Row, Col, Image } from 'react-bootstrap';
+import { removeItem } from '../slices/cartSlice';
+import { useDispatch } from 'react-redux';
+import { FaTrash } from 'react-icons/fa';
 
 const PaymentScreen = () => {
   const [shipping, setShipping] = useState([]);
   const cart = useSelector((state) => state.cart);
   const { items } = cart;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchShipping = async () => {
@@ -38,16 +42,19 @@ const PaymentScreen = () => {
   const totalPrice = items
     .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
     .toFixed(2);
-  const deliveryCharge = Number(totalPrice) * 0.1;
+  const deliveryCharge = Number(totalPrice * 0.1).toFixed(2);
 
   const goBackShipping = () => {
     // Use navigate function to go back to the shipping page
-    history('/shipping'); // Replace '/shipping' with the actual route for your shipping page
+    history('/cart'); // Replace '/shipping' with the actual route for your shipping page
+  };
+  const removeCartHandler = async (id) => {
+    dispatch(removeItem(id));
   };
 
   return (
     <>
-      <h1>Address Information</h1>
+      <h1>Order Information</h1>
       {shipping.map((shippingInfo) => (
         <React.Fragment key={shippingInfo._id}>
           <Table striped bordered hover>
@@ -120,6 +127,15 @@ const PaymentScreen = () => {
                         <Link to={`/product/${item._id}`}>{item.MyName}</Link>
                       </Col>
                       <Col md={2}>£{item.MyPrice}</Col>
+                      <Col>
+                        <Button
+                          type="button"
+                          variant="light"
+                          onClick={() => removeCartHandler(item._id)}
+                        >
+                          <FaTrash style={{ color: 'red' }} />
+                        </Button>
+                      </Col>
                     </Row>
                   ))}
                 </td>
@@ -173,7 +189,7 @@ const PaymentScreen = () => {
         </PayPalScriptProvider>
       </div>
 
-      <Button onClick={goBackShipping}>Back to Shipping</Button>
+      <Button onClick={goBackShipping}>Back to Basket</Button>
     </>
   );
 };
