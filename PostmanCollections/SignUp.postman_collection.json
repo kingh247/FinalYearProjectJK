@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "4cdc5ea4-66cb-4f60-9c9d-72517b68ab94",
+		"name": "SignUp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21628574",
+		"_collection_link": "https://restless-escape-724246.postman.co/workspace/MyProjectJK~094f42a5-9e89-4558-8ebb-234baad6ce70/collection/21628574-4cdc5ea4-66cb-4f60-9c9d-72517b68ab94?action=share&source=collection_link&creator=21628574"
+	},
+	"item": [
+		{
+			"name": "Get Signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response JSON\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Check if the status code is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/signup",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response JSON\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Check if the status code is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"AdminUseJohnKinghnn\",\r\n    \"password\": \"adminemai\",\r\n    \"email\": \"admin@email.com\",\r\n    \"userType\": \"Admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/signup",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

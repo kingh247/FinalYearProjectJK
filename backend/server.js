@@ -8,7 +8,9 @@ import User from './Schema/MyUser.js';
 import Users from './Schema/MyLogin.js';
 import Product from './Schema/Product.js';
 import Shipping from './Schema/Shipping.js';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
 import mongoose from 'mongoose';
 import Order from './Schema/MyOrder.js';
 
@@ -225,20 +227,7 @@ app.put('/api/users/:id', async (req, res) => {
   }
 });
 
-// // insert signup to database using post without bycrpt
-// app.post('/api/signup', async (req, res) => {
-//   try {
-//     Users.create(req.body)
-//       .then((users) => res.json(users))
-//       .catch((err) => res.json(err));
-//   } catch (error) {
-//     console.log(error.message);
-//     res.status(500).json({ message: error.message });
-//   }
-//   console.log(req.body);
 
-//   //res.send(req.body);
-// });
 
 // get user
 app.get('/api/users', async (req, res) => {
@@ -297,37 +286,33 @@ app.delete('/api/shipping/:id', async (req, res) => {
   }
 });
 
-// app.post('/api/login', async (req, res) => {
-//   const { username, password } = req.body;
 
-//   try {
-//     // Check if the username exists in the database
-//     const user = await User.findOne({ username });
+// Define your JWT secret here
+const JWT_SECRET = '12345';
 
-//     if (user.userType === 'Admin') {
-//       return res.json({ message: 'Login successful', user });
-//       // return res.status(401).json({ error: 'Invalid credentials' });
-//     }
-
-//     // Replace the following line with actual token generation and sending logic
-//     // return res.json({ message: 'Login successful', user });
-//     if (user.userType === 'Admin') {
-//       return res.redirect('http://localhost:3000/admin'); // Replace with the actual admin dashboard URL
-//     }
-//   } catch (error) {
-//     console.error('Error during login:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
   // Check if the username exists in the database
   const user = await User.findOne({ username });
   if (user) {
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: '1d',
+    });
+
+    // Send token and user data in response
+    res.cookie('jwt', token, {
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: true,
+      secure: false,
+      sameSite: 'strict',
+    });
+
     res.json({
       _id: user._id,
       username: user.username,
       userType: user.userType,
+      token, // Include token in response if needed
     });
   } else {
     res.status(401).json({ error: 'Invalid credentials' });
