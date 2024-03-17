@@ -26,6 +26,17 @@ app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
 });
 
+// Serve static files from the 'build' folder
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+// API routes
+// Define your API routes here...
+
+// Catch-all route to serve your React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'fontend', 'build', 'index.html'));
+});
+
 // // Middleware to connect to front end
 app.use(express.json());
 app.use(cors());
