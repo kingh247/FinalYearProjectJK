@@ -24,6 +24,8 @@ const app = express();
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
 });
+
+// for render to work
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
