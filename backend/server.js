@@ -18,11 +18,23 @@ const port = 5000;
 // intialize express
 const app = express();
 
-app.get('/', (req, res) => {
+// app.get('/', (req, res) => {
+//   res.send('Hello, welcome to the server!');
+// });
+// for render to work
+
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  app.get('*', (req, res) => 
+    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
+  );
+}else{
+  app.get('/', (req, res) => {
   res.send('Hello, welcome to the server!');
 });
-// for render to work
-app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+}
 // to use paypal
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
