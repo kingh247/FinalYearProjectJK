@@ -18,9 +18,9 @@ const port = process.env.PORT || 5000;
 // intialize express
 const app = express();
 
-// app.get('/', (req, res) => {
-//   res.send('Hello, welcome to the server!');
-// });
+app.get('/', (req, res) => {
+  res.send('Hello, welcome to the server!');
+});
 // to use paypal
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
