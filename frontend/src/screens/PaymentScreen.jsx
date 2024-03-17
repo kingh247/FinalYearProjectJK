@@ -47,7 +47,7 @@ const PaymentScreen = () => {
   const deliveryCharge = Number(totalPrice * 0.1).toFixed(2);
 
   const goBackShipping = () => {
-    history('/cart'); 
+    history('/cart');
   };
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
@@ -113,10 +113,15 @@ const PaymentScreen = () => {
           <Table striped bordered hover>
             <tbody>
               <tr>
-                <td>Products:</td>
-                <td>
-                  {items.map((item) => (
-                    <Row key={item._id} className="align-items-center">
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+              </tr>
+              {items.map((item) => (
+                <tr key={item._id}>
+                  <td>
+                    <Row className="align-items-center">
                       <Col md={2}>
                         <Image
                           src={item.MyImage}
@@ -124,30 +129,31 @@ const PaymentScreen = () => {
                           style={{ maxWidth: '100%', maxHeight: '100%' }}
                         />
                       </Col>
-                      <Col md={3}>
+                      <Col md={9}>
                         <Link to={`/product/${item._id}`}>{item.MyName}</Link>
                       </Col>
-                      <Col md={2}>£{item.MyPrice}</Col>
-                      <Col>
-                        <Button
-                          type="button"
-                          variant="light"
-                          onClick={() => removeCartHandler(item._id)}
-                        >
-                          <FaTrash style={{ color: 'red' }} />
-                        </Button>
-                      </Col>
                     </Row>
-                  ))}
-                </td>
+                  </td>
+                  <td>£{item.MyPrice}</td>
+                  <td>{item.qty}</td>
+                  <td>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => removeCartHandler(item._id)}
+                    >
+                      <FaTrash style={{ color: 'red' }} />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+              <tr>
+                <th>Delivery Charge:</th>
+                <td colSpan="3">{deliveryCharge}</td>
               </tr>
               <tr>
-                <td>Delivery Charge:</td>
-                <td>{deliveryCharge}</td>
-              </tr>
-              <tr>
-                <td>Total Price:</td>
-                <td>{`${totalPrice}`}</td>
+                <th>Total Price:</th>
+                <td colSpan="3">{`${totalPrice}`}</td>
               </tr>
             </tbody>
           </Table>
