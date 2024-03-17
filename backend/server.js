@@ -14,11 +14,11 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import Order from './Schema/MyOrder.js';
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 // intialize express
 const app = express();
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
   res.send('Hello, welcome to the server!');
 });
 // to use paypal
