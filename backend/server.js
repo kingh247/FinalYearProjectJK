@@ -9,6 +9,7 @@ import Users from './Schema/MyLogin.js';
 import Product from './Schema/Product.js';
 import Shipping from './Schema/Shipping.js';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 import bcrypt from 'bcrypt';
 
 import mongoose from 'mongoose';
@@ -18,13 +19,25 @@ const port = process.env.PORT || 5000;
 // intialize express
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello, welcome to the server!');
-});
+
 // to use paypal
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
 });
+const __dirname = path.resolve();
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}else{
+  app.get('/', (req, res) => {
+    res.send('Hello, welcome to the server!');
+  });
+
+}
 
 // // Middleware to connect to front end
 app.use(express.json());
