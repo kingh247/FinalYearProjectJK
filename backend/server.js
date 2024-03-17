@@ -18,7 +18,7 @@ const port = process.env.PORT || 5000;
 // intialize express
 const app = express();
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello, welcome to the server!');
 });
 // to use paypal
