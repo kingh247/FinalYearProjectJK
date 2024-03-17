@@ -16,6 +16,8 @@ import mongoose from 'mongoose';
 import Order from './Schema/MyOrder.js';
 
 const port = process.env.PORT || 5000;
+// connect to database
+connectDB();
 // intialize express
 const app = express();
 
@@ -25,7 +27,7 @@ app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
 });
 
-// for render to work
+// for render to
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
@@ -44,8 +46,7 @@ if (process.env.NODE_ENV === 'production') {
 // // Middleware to connect to front end
 app.use(express.json());
 app.use(cors());
-// connect to database
-connectDB();
+
 
 // // List all products
 app.get('/api/products', (req, res) => {
