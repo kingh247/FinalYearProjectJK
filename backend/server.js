@@ -21,23 +21,6 @@ const app = express();
 // app.get('/', (req, res) => {
 //   res.send('Hello, welcome to the server!');
 // });
-// for render to work
-
-// Static files serving
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the React build folder
-  app.use(express.static(path.join(__dirname, 'frontend', 'build')));
-
-  // All other routes should serve the React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
-} else {
-  // For development, send a welcome message
-  app.get('/', (req, res) => {
-    res.send('Hello, welcome to the server!');
-  });
-}
 // to use paypal
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
