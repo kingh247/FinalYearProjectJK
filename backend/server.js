@@ -18,23 +18,12 @@ const port = 5000;
 // intialize express
 const app = express();
 
-// app.get('/', (req, res) => {
-//   res.send('Hello, welcome to the server!');
-// });
+app.get('/', (req, res) => {
+  res.send('Hello, welcome to the server!');
+});
 // to use paypal
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
-});
-
-// Serve static files from the 'build' folder
-app.use(express.static(path.join(__dirname, '/frontend/build')));
-
-// API routes
-// Define your API routes here...
-
-// Catch-all route to serve your React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'fontend', 'build', 'index.html'));
 });
 
 // // Middleware to connect to front end
