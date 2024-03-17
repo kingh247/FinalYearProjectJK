@@ -18,9 +18,9 @@ const port = 5000;
 // intialize express
 const app = express();
 
-// app.get('/', (req, res) => {
-//   res.send('Hello, welcome to the server!');
-// });
+app.get('/', (req, res) => {
+  res.send('Hello, welcome to the server!');
+});
 // for render to work
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 // to use paypal
