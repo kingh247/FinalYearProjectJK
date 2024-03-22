@@ -16,6 +16,8 @@ const Header = () => {
   const handleLogout = () => {
     // Remove user data from local storage
     localStorage.removeItem('userData');
+    // empty the cart data stoed in local storage
+    localStorage.removeItem('cart');
     // Redirect to the login page or any other page
     window.location.href = '/login'; // Assuming login page URL is '/login'
   };
