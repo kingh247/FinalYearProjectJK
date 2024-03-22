@@ -14,6 +14,7 @@ const PaymentScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { items } = cart;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchShipping = async () => {
@@ -48,6 +49,9 @@ const PaymentScreen = () => {
 
   const goBackShipping = () => {
     history('/cart');
+  };
+  const goToConfirnmation = () => {
+    navigate('/confirmation');
   };
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
@@ -100,15 +104,6 @@ const PaymentScreen = () => {
                 </td>
               </tr>
             </tbody>
-
-            {/* <Table>
-            <tbody>
-            <tr>
-              <td>Total Price:</td>
-              <td>{`${totalPrice}`}</td>
-            </tr>
-            </tbody>
-            </Table> */}
           </Table>
           <Table striped bordered hover>
             <tbody>
@@ -197,6 +192,7 @@ const PaymentScreen = () => {
       </div>
 
       <Button onClick={goBackShipping}>Back to Basket</Button>
+      <Button onClick={goToConfirnmation}>Pay and Continue</Button>
     </>
   );
 };

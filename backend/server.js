@@ -21,6 +21,9 @@ connectDB();
 // intialize express
 const app = express();
 
+// app.get('/', (req, res) => {
+//   res.send('Hello, welcome to the server!');
+// });
 
 // to use paypal
 app.use('/api/config/paypal', (req, res) => {
@@ -36,17 +39,15 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
-}else{
+} else {
   app.get('/', (req, res) => {
     res.send('Hello, welcome to the server!');
   });
-
 }
 
 // // Middleware to connect to front end
 app.use(express.json());
 app.use(cors());
-
 
 // // List all products
 app.get('/api/products', (req, res) => {
@@ -160,19 +161,35 @@ app.post('/api/product', async (req, res) => {
 
   // res.send(req.body);
 });
+// sending order
 app.post('/api/order', async (req, res) => {
-  // insert product to database using post
   try {
+    // Check if request body is empty
+    if (!req.body) {
+      return res.status(400).json({ message: 'Request body is empty' });
+    }
+
     const order = await Order.create(req.body);
     res.status(200).json(order);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
-  console.log(req.body);
-
-  // res.send(req.body);
 });
+
+// app.post('/api/order', async (req, res) => {
+//   // insert product to database using post
+//   try {
+//     const order = await Order.create(req.body);
+//     res.status(200).json(order);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).json({ message: error.message });
+//   }
+//   console.log(req.body);
+
+// res.send(req.body);
+// });
 // Route to create a new order
 // shipping
 app.post('/api/shipping', async (req, res) => {
@@ -204,6 +221,7 @@ app.delete('/api/product/:id', async (req, res) => {
 });
 
 // Update product by ID
+// Update product by ID
 app.put('/api/product/:id', async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -212,20 +230,50 @@ app.put('/api/product/:id', async (req, res) => {
       { new: true } // Returns the modified document rather than the original
     );
 
+    // Check if the product was found and updated
     if (updatedProduct) {
       res.json({ message: 'Product updated successfully', updatedProduct });
     } else {
+      // If product is not found
       res.status(404).json({ error: 'Product not found' });
     }
   } catch (error) {
+    // Catch any errors that occur during the update process
     console.error('Error updating product:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+// app.put('/api/product/:id', async (req, res) => {
+//   try {
+//     const updatedProduct = await Product.findByIdAndUpdate(
+//       req.params.id,
+//       req.body,
+//       { new: true } // Returns the modified document rather than the original
+//     );
+
+//     if (updatedProduct) {
+//       res.json({ message: 'Product updated successfully', updatedProduct });
+//     } else {
+//       res.status(404).json({ error: 'Product not found' });
+//     }
+//   } catch (error) {
+//     console.error('Error updating product:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 // insert users to database using post
 app.post('/api/users', async (req, res) => {
   try {
+    // Check if required fields are present in the request body
+    const requiredFields = ['username', 'password']; // Adjust as per your schema
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res
+          .status(400)
+          .json({ message: `Missing required field: ${field}` });
+      }
+    }
     User.create(req.body)
       .then((users) => res.json(users))
       .catch((err) => res.json(err));
@@ -257,32 +305,97 @@ app.put('/api/users/:id', async (req, res) => {
   }
 });
 
-
-
 // get user
+// app.get('/api/users', async (req, res) => {
+//   const data = await User.find();
+
+//   res.json(data);
+// });
+// // get signup
+// app.get('/api/signup', async (req, res) => {
+//   const data = await Users.find();
+
+//   res.json(data);
+// });
+// // get Products
+// app.get('/api/product', async (req, res) => {
+//   const data = await Product.find();
+
+//   res.json(data);
+// });
+// Get users
 app.get('/api/users', async (req, res) => {
-  const data = await User.find();
+  try {
+    const data = await User.find();
 
-  res.json(data);
+    // Check if there is any data returned
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: 'No users found.' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
-// get signup
+
+// Get signups
 app.get('/api/signup', async (req, res) => {
-  const data = await Users.find();
+  try {
+    const data = await Users.find();
 
-  res.json(data);
+    // Check if there is any data returned
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: 'No signups found.' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching signups:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
-// get Products
-app.get('/api/product', async (req, res) => {
-  const data = await Product.find();
 
-  res.json(data);
+// Get products
+app.get('/api/product', async (req, res) => {
+  try {
+    const data = await Product.find();
+
+    // Check if there is any data returned
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: 'No products found.' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 // get shipping
-app.get('/api/shipping', async (req, res) => {
-  const data = await Shipping.find();
+// app.get('/api/shipping', async (req, res) => {
+//   const data = await Shipping.find();
 
-  res.json(data);
+//   res.json(data);
+// });
+
+// get shipping
+app.get('/api/shipping', async (req, res) => {
+  try {
+    const data = await Shipping.find();
+
+    // Check if there is any data returned
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: 'No shipping data found.' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching shipping data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 app.put('/api/shipping/:id', async (req, res) => {
   try {
@@ -316,7 +429,6 @@ app.delete('/api/shipping/:id', async (req, res) => {
   }
 });
 
-
 // Define your JWT secret here
 const JWT_SECRET = '12345';
 
@@ -329,7 +441,6 @@ app.post('/api/login', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
       expiresIn: '1d',
     });
-
     // Send token and user data in response
     res.cookie('jwt', token, {
       maxAge: 1000 * 60 * 60 * 24,
@@ -348,12 +459,21 @@ app.post('/api/login', async (req, res) => {
     res.status(401).json({ error: 'Invalid credentials' });
     error.message = 'Invalid credentials';
   }
+  if (user.userType === 'Admin') {
+    // If userType is 'Admin', redirect to admin dashboard or any other route
+
+    console.log(user);
+  }
 });
 
 // Signup  route using bcrypt
 app.post('/api/signup', async (req, res) => {
   // Signup  route using bcrypt
   const { username, email, password, userType } = req.body;
+  // Check if any required field is missing
+  if (!username || !email || !password || !userType) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
   bcrypt
     .hash(password, 10) // using salt
     .then((hash) => {

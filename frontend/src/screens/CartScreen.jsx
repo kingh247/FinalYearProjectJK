@@ -26,20 +26,22 @@ const ShoppingCartScreen = () => {
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
   };
-  // const checkoutHandler = async (id) => {
-  //   navigate('/login?redirect=shipping');
-  // };
-  //  const checkoutHandler = async (id) => {
-  //    navigate('/shipping');
-  //  };
-  
-   const checkoutHandler = async () => {
-     const totalPrice = items
-       .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
-       .toFixed(2);
 
-     navigate(`/shipping?total=${totalPrice}`);
-   };
+  const checkoutHandler = async () => {
+    // Check if user is logged in
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      // If not logged in, redirect to login screen
+      navigate('/login');
+    } else {
+      // If logged in, proceed to checkout
+      const totalPrice = items
+        .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
+        .toFixed(2);
+
+      navigate(`/shipping?total=${totalPrice}`);
+    }
+  };
 
   return (
     <Row>

@@ -29,6 +29,7 @@ import AdminDashboard from './screens/AdminDashboard';
 import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import EditPaymentScreen from './screens/EditPaymentScreen';
+import ConfirmationPage from './screens/ConfirmationPage';
 // added this and then ran it in below and removed the <App />
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,7 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/shipping" element={<ShippingScreen />} />
       <Route path="/payment" element={<PaymentScreen />} />
+      <Route path="/confirmation" element={<ConfirmationPage />} />
       <Route path="/EditPaymentScreen/:id" element={<EditPaymentScreen />} />
     </Route>
   )
@@ -62,3 +64,4 @@ root.render(
   </React.StrictMode>
 );
 reportWebVitals();
+

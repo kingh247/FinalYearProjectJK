@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const LoginScreen = () => {
   // State to hold the username and password entered by the user
@@ -10,34 +9,36 @@ const LoginScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      // Making a POST request to the login API endpoint
-      const response = await axios.post('http://localhost:5000/api/login', {
-        username,
-        password,
-      });
+    fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Log the response for debugging
+        console.log('Login result:', data);
 
-      console.log('Login result:', response.data);
-
-      // Check if the login was successful
-      if (response.status === 200) {
-        // Check userType from the response
-        //const { userType } = response.data;
-
-        // Redirect based on userType
-        if (response.data.username === 'jkingh') {
-          // Redirect to the admin dashboard
+        // Check if the user is an admin based on userType field
+        if (data.userType === 'Admin') {
+          // User is an admin, handle accordingly
+          console.log('User is an admin');
           window.location.href = 'http://localhost:3000/admin';
+          // Redirect to admin dashboard or perform admin-specific actions
+          //    // Store token in localStorage
+           
         } else {
-          // Redirect to the home screen
+          // User is not an admin, handle accordingly
+          console.log('User is not an admin');
           window.location.href = 'http://localhost:3000';
+          // Redirect to regular user dashboard or perform regular user actions
         }
-      } else {
-        console.log('Login failed. Check your credentials.');
-      }
-    } catch (error) {
-      console.error('Error during login:', error.message);
-    }
+        // Store user data in local storage
+        localStorage.setItem('userData', JSON.stringify(data));
+      })
+      .catch((error) => console.error('Error:', error));
   };
 
   return (

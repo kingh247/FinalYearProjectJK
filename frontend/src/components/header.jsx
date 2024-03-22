@@ -7,6 +7,19 @@ import { useSelector } from 'react-redux';
 const Header = () => {
   const { items } = useSelector((state) => state.cart); // calling this from store.js
   console.log(items); //displaying the items that are in the cart
+
+  // Retrieve user data from local storage
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const loggedInUsername = userData ? userData.username : null;
+  const userType = userData ? userData.userType : null;
+  // Logout function
+  const handleLogout = () => {
+    // Remove user data from local storage
+    localStorage.removeItem('userData');
+    // Redirect to the login page or any other page
+    window.location.href = '/login'; // Assuming login page URL is '/login'
+  };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -42,18 +55,29 @@ const Header = () => {
                   )}
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <FaUser />
-                  Sign In
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/admin">
-                <Nav.Link>
-                  <FaUser />
-                  Admin
-                </Nav.Link>
-              </LinkContainer>
+              {loggedInUsername ? (
+                <>
+                  {userType === 'Admin' && (
+                    <LinkContainer to="/admin">
+                      <Nav.Link>
+                        <FaUser />
+                        Admin
+                      </Nav.Link>
+                    </LinkContainer>
+                  )}
+                  <Nav.Link onClick={handleLogout}>
+                    <FaUser />
+                    {loggedInUsername} (Logout)
+                  </Nav.Link>
+                </>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <FaUser />
+                    Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
