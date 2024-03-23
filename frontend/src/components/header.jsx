@@ -13,6 +13,7 @@ const Header = () => {
   const loggedInUsername = userData ? userData.username : null;
   const userType = userData ? userData.userType : null;
   // Logout function
+
   const handleLogout = () => {
     // Remove user data from local storage
     localStorage.removeItem('userData');
@@ -67,9 +68,9 @@ const Header = () => {
                       </Nav.Link>
                     </LinkContainer>
                   )}
-                  <Nav.Link onClick={handleLogout}>
+                  <Nav.Link onClick={handleLogout} style={{ color: 'green' }}>
                     <FaUser />
-                    {loggedInUsername} (Logout)
+                    {loggedInUsername} (Logout )
                   </Nav.Link>
                 </>
               ) : (

@@ -433,36 +433,44 @@ app.delete('/api/shipping/:id', async (req, res) => {
 const JWT_SECRET = '12345';
 
 app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-  // Check if the username exists in the database
-  const user = await User.findOne({ username });
-  if (user) {
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
-      expiresIn: '1d',
-    });
-    // Send token and user data in response
-    res.cookie('jwt', token, {
-      maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
-    });
+  try {
+    const { username, password } = req.body;
+    // Check if the username exists in the database
+    const user = await User.findOne({ username });
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (passwordMatch) {
+      // Generate JWT token
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+        expiresIn: '1d',
+      });
+      // Send token and user data in response
+      res.cookie('jwt', token, {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+      });
 
-    res.json({
-      _id: user._id,
-      username: user.username,
-      userType: user.userType,
-      token, // Include token in response if needed
-    });
-  } else {
-    res.status(401).json({ error: 'Invalid credentials' });
-    error.message = 'Invalid credentials';
-  }
-  if (user.userType === 'Admin') {
-    // If userType is 'Admin', redirect to admin dashboard or any other route
+      res.json({
+        _id: user._id,
+        username: user.username,
+        userType: user.userType,
+        token, // Include token in response if needed
+      });
 
-    console.log(user);
+      if (user.userType === 'Admin') {
+        // If userType is 'Admin', redirect to admin dashboard or any other route
+
+        console.log(user);
+      }
+    } else {
+      res.status(401).json({ error: 'Invalid credentials' });
+      // You can log this error if needed
+      // console.error('Invalid credentials');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

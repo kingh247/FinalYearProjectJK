@@ -167,8 +167,8 @@ const PaymentScreen = () => {
                 purchase_units: [
                   {
                     amount: {
-                      value: totalPrice, // The total amount to be paid
-                      currency_code: 'Sterling', // Change to your currency code
+                      value: totalPrice.toFixed(2), // The total amount to be paid
+                      currency_code: 'GBP', // Change to your currency code
                     },
                   },
                 ],
