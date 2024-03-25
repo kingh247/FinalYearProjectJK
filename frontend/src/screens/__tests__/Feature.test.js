@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Features from './Features';
+import Features from '../Features';
 
 test('renders Features component with Lorem Ipsum text', () => {
   render(<Features />);

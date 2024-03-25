@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import AdminDashboard from './AdminDashboard';
+import AdminDashboard from '../AdminDashboard';
 
 describe('AdminDashboard', () => {
   test('renders welcome heading', () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import LoginScreen from './LoginScreen';
-import mockData from '../../../backend/mockData/getMock';
+import LoginScreen from '../LoginScreen';
+import mockData from '../../../../backend/mockData/getMock';
 import axios from 'axios';
 
 describe('LoginScreen', () => {

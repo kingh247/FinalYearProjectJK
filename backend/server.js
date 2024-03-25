@@ -375,13 +375,6 @@ app.get('/api/product', async (req, res) => {
 });
 
 // get shipping
-// app.get('/api/shipping', async (req, res) => {
-//   const data = await Shipping.find();
-
-//   res.json(data);
-// });
-
-// get shipping
 app.get('/api/shipping', async (req, res) => {
   try {
     const data = await Shipping.find();
@@ -397,6 +390,7 @@ app.get('/api/shipping', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+// update Shipping by ID
 app.put('/api/shipping/:id', async (req, res) => {
   try {
     const updatedShipping = await Shipping.findByIdAndUpdate(
@@ -438,6 +432,7 @@ app.post('/api/login', async (req, res) => {
     // Check if the username exists in the database
     const user = await User.findOne({ username });
     const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log(passwordMatch); // returns true of false depending if the password is correct
     if (passwordMatch) {
       // Generate JWT token
       const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
@@ -458,11 +453,11 @@ app.post('/api/login', async (req, res) => {
         token, // Include token in response if needed
       });
 
-      if (user.userType === 'Admin') {
-        // If userType is 'Admin', redirect to admin dashboard or any other route
+      // if (user.userType === 'Admin') {
+      //   // If userType is 'Admin', redirect to admin dashboard or any other route
 
-        console.log(user);
-      }
+      //   console.log(user);
+      // }
     } else {
       res.status(401).json({ error: 'Invalid credentials' });
       // You can log this error if needed
@@ -483,14 +478,18 @@ app.post('/api/signup', async (req, res) => {
     return res.status(400).json({ message: 'Missing required fields' });
   }
   bcrypt
-    .hash(password, 10) // using salt
+    .hash(password, 10)
     .then((hash) => {
       Users.create({ username, email, password: hash, userType })
-        .then((users) => res.json(users))
-        .catch((err) => res.json(err));
-      console.log(req.body);
+        .then((user) => {
+          // Send a response indicating successful signup
+          res.status(201).json({ message: 'Signup successful' });
+        })
+        .catch((err) => {
+          res.status(500).json({ message: 'Internal server error' });
+        });
     })
-    .catch((err) => res.json(err.message));
+    
 });
 // get user id from mongo database, passing in the User mongoose schema
 app.get('/api/shipping/:id', async (req, res) => {

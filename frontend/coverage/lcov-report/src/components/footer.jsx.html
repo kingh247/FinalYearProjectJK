@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for backend/Schema/MyUser.js</title>
+    <title>Code coverage report for src/components/footer.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">backend/Schema</a> MyUser.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> footer.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,9 +107,13 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,66 +145,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import mongoose from 'mongoose';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Col, Row, Container, Navbar } from 'react-bootstrap';
 &nbsp;
-// const MyUserSchema = new mongoose.Schema(
-//   {
-//     user: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       required: true,
-//       ref: 'User',
-//     },
-//     MyName: {
-//       type: String,
-//       required: true,
-//     },
-//     MyEmail: {
-//       type: String,
-//       required: true,
-//       unique: true,
-//     },
-//     MyPassword: {
-//       type: String,
-//       required: true,
-//     },
-//     IsAdmin: {
-//       type: Boolean,
-//       required: true,
-//       default: false,
-//     },
-//   },
-//   {
-//     timestamp: true,
-//   }
-// );
-const userSchema = new mongoose.Schema(
-  {
-    username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    userType: { type: String },
-  },
-  {
-    timestamps: true,
-  }
-);
+const Footer = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  // java script date object
+  const currentYear = <span class="cstat-no" title="statement not covered" >new Date().getFullYear();</span>
 &nbsp;
-const User = mongoose.model('user', userSchema);
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;footer&gt;
+      &lt;Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect&gt;
+        &lt;Container&gt;
+          &lt;Row&gt;
+            &lt;div className="footer-content"&gt;
+              &lt;div className="footer-section"&gt;
+                &lt;h2&gt;About Us&lt;/h2&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div className="footer-section"&gt;
+                &lt;h2&gt;Contact Us&lt;/h2&gt;
+                &lt;p&gt;Email: Johnkingh@example.com&lt;/p&gt;
+                &lt;p&gt;Phone: +1 (123) 456-7890&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div className="footer-section"&gt;
+                &lt;h2&gt;Follow Us&lt;/h2&gt;
+                &lt;div className="social-icons"&gt;
+                  &lt;a href="https://www.facebook.com"&gt;Facebook&lt;/a&gt;
+                  &lt;a href="https://www.twitter.com"&gt;Twitter&lt;/a&gt;
+                  &lt;a href="https://www.instagram.com"&gt;Instagram&lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div className="footer-bottom"&gt;
+              &lt;p&gt;&amp;copy; 2023 John kingh E-comerce site. All rights reserved.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;Col className="text-center py-3"&gt;
+              &lt;p&gt;JohnKinghEcommerceSite &amp;copy; {currentYear}&lt;/p&gt;
+            &lt;/Col&gt;
+          &lt;/Row&gt;
+        &lt;/Container&gt;
+      &lt;/Navbar&gt;
+    &lt;/footer&gt;
+  );
+};
 &nbsp;
-export default User;
+export default Footer;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -208,7 +202,7 @@ export default User;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-25T14:19:07.618Z
+                at 2024-03-25T15:18:56.204Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
