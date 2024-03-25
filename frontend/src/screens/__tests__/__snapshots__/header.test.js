@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Provider } from 'react-redux'; // Import Provider
-import Header from './header';
-import store from '../store'; // Import your Redux store
+import Header from '../../../components/header';
+import store from '../../../store'; // Import your Redux store
 
 describe('Header', () => {
   test('renders header content correctly', () => {

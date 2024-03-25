@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -161,26 +161,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,17 +253,17 @@ import logo from '../assets/logo.jpg';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector } from 'react-redux';
 &nbsp;
-const Header = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const { items } = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >state.cart)</span>;</span> // calling this from store.js
-<span class="cstat-no" title="statement not covered" >  console.log(items); </span>//displaying the items that are in the cart
+const Header = () =&gt; {
+  const { items } = useSelector((state) =&gt; state.cart); // calling this from store.js
+  console.log(items); //displaying the items that are in the cart
 &nbsp;
   // Retrieve user data from local storage
-  const userData = <span class="cstat-no" title="statement not covered" >JSON.parse(localStorage.getItem('userData'));</span>
-  const loggedInUsername = <span class="cstat-no" title="statement not covered" >userData ? userData.username : null;</span>
-  const userType = <span class="cstat-no" title="statement not covered" >userData ? userData.userType : null;</span>
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const loggedInUsername = userData ? <span class="branch-0 cbranch-no" title="branch not covered" >userData.username </span>: null;
+  const userType = userData ? <span class="branch-0 cbranch-no" title="branch not covered" >userData.userType </span>: null;
   // Logout function
 &nbsp;
-  const handleLogout = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  const handleLogout = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
     // Remove user data from local storage
 <span class="cstat-no" title="statement not covered" >    localStorage.removeItem('userData');</span>
     // empty the cart data stoed in local storage
@@ -272,7 +272,7 @@ const Header = <span class="cstat-no" title="statement not covered" ><span class
 <span class="cstat-no" title="statement not covered" >    window.location.href = '/login'; </span>// Assuming login page URL is '/login'
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;header&gt;
       &lt;Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect&gt;
         &lt;Container&gt;
@@ -301,14 +301,14 @@ const Header = <span class="cstat-no" title="statement not covered" ><span class
                 &lt;Nav.Link&gt;
                   &lt;FaShoppingCart /&gt; Cart
                   {items.length &gt; 0 &amp;&amp; (
-                    &lt;Badge pill bg="danger"&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;Badge pill bg="danger"&gt;</span>
                       {items.reduce(<span class="fstat-no" title="function not covered" >(a</span>, c) =&gt; <span class="cstat-no" title="statement not covered" >a + c.qty,</span> 0)}
                     &lt;/Badge&gt;
                   )}
                 &lt;/Nav.Link&gt;
               &lt;/LinkContainer&gt;
               {loggedInUsername ? (
-                &lt;&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;&gt;</span>
                   {userType === 'Admin' &amp;&amp; (
                     &lt;LinkContainer to="/admin"&gt;
                       &lt;Nav.Link&gt;
@@ -346,7 +346,7 @@ export default Header;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-25T15:18:56.204Z
+                at 2024-03-25T15:45:59.051Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
