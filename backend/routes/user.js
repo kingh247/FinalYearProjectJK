@@ -1,12 +1,93 @@
 import express from 'express';
-import router from 'express';
+const router = express.Router();
+import User from '../Schema/MyUser.js';
+import Users from '../Schema/MyLogin.js';
 
-//constroller functions
-import { signupUser, loginUser } from '../controller/userController';
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
 
-//login https://www.youtube.com/watch?v=b5LDOW8WJ9A&list=PL4cUxeGkcC9g8OhpOZxNdhXggFz2lOuCT&index=2
-router.post('/login', loginUser);
-//signin//
-router.post('/signup', signupUser);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+// Delete user by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+    if (deletedUser) {
+      res.json({ message: 'User deleted successfully', deletedUser });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+// insert users to database using post
+router.post('/', async (req, res) => {
+  try {
+    // Check if required fields are present in the request body
+    const requiredFields = ['username', 'password']; // Adjust as per your schema
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res
+          .status(400)
+          .json({ message: `Missing required field: ${field}` });
+      }
+    }
+    User.create(req.body)
+      .then((users) => res.json(users))
+      .catch((err) => res.json(err));
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+  console.log(req.body);
+
+  //res.send(req.body);
+});
+// Update user by ID by using the Users schema
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedUser = await Users.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } // Returns the modified document rather than the original
+    );
+
+    if (updatedUser) {
+      res.json({ message: 'User updated successfully', updatedUser });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const data = await User.find();
+
+    // Check if there is any data returned
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: 'No users found.' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 export default router;
