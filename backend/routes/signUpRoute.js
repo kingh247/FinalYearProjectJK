@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import Users from '../Schema/MyLogin.js';;
+import Users from '../Schema/MyLogin.js';
 import bcrypt from 'bcrypt';
 
 // Get signups
@@ -41,6 +41,5 @@ router.post('/', async (req, res) => {
       });
   });
 });
-
 
 export default router;

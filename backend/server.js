@@ -11,7 +11,6 @@ import productsRoute from './routes/productsRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import signUpRoute from './routes/signUpRoute.js';
 import loginRoute from './routes/loginRoute.js';
-import mongoose from 'mongoose';
 
 
 const port = process.env.PORT || 5000;
@@ -48,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(cors());
 
-// Mount the userRouter
+// Mount the Router
 app.use('/api/product', productRoute);
 
 app.use('/api/users', userRoute);
@@ -62,6 +61,8 @@ app.use('/api/order', orderRoute);
 app.use('/api/signup', signUpRoute);
 
 app.use('/api/login', loginRoute);
+
+
 
 
 app.listen(port, () => console.log(`Server is now running on ${port}`));
