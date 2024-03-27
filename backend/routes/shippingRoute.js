@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
 
     // Check if there is any data returned
     if (!data || data.length === 0) {
+      console.log('No shipping data found.');
       return res.status(404).json({ message: 'No shipping data found.' });
     }
 
@@ -27,9 +28,11 @@ router.get('/:id', async (req, res) => {
     if (shipping) {
       res.json(shipping);
     } else {
+      console.log('User not found');
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
+    console.log('Internal Server Error');
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -37,6 +40,38 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // insert product to database using post
   try {
+    const { fullName, addressLine1, addressLine2, postalCode, city, country } =
+      req.body;
+
+    const missingFields = [];
+
+    // Check if any required field is missing
+    if (!fullName) {
+      missingFields.push('Full Name');
+    }
+    if (!addressLine1) {
+      missingFields.push('AddressLine1');
+    }
+    if (!addressLine2) {
+      missingFields.push('AddressLine2');
+    }
+    if (!city) {
+      missingFields.push('City');
+    }
+    if (!postalCode) {
+      missingFields.push('Postal code');
+    }
+    if (!country) {
+      missingFields.push('Country');
+    }
+
+    // If there are missing fields, return error response
+    if (missingFields.length > 0) {
+      const errorMessage = `Missing fields: ${missingFields.join(', ')}`;
+      console.log(errorMessage);
+      return res.status(400).json({ message: errorMessage });
+    }
+
     const shipping = await Shipping.create(req.body);
     res.status(200).json(shipping);
   } catch (error) {
@@ -60,10 +95,11 @@ router.put('/:id', async (req, res) => {
     if (updatedShipping) {
       res.json({ message: 'Shipping updated successfully', updatedShipping });
     } else {
+      console.error('Shipping not found', error);
       res.status(404).json({ error: 'Shipping not found' });
     }
   } catch (error) {
-    console.error('Error updating Shipping:', error);
+    console.error('Internal Server Error', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -72,11 +108,14 @@ router.delete('/:id', async (req, res) => {
   try {
     const deletedShipping = await Shipping.findByIdAndDelete(req.params.id);
     if (deletedShipping) {
+      console.log('Shipping deleted successfully');
       res.json({ message: 'Shipping deleted successfully', deletedShipping });
     } else {
+      console.log('Shipping not found');
       res.status(404).json({ error: 'Shipping not found' });
     }
   } catch (error) {
+    console.log('Internal Server Error');
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

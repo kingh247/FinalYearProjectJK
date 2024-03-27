@@ -7,6 +7,7 @@ router.post('/', async (req, res) => {
   try {
     // Check if request body is empty
     if (!req.body) {
+      console.log('Request body is empty');
       return res.status(400).json({ message: 'Request body is empty' });
     }
 
@@ -17,9 +18,5 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
-
-
-
 
 export default router;

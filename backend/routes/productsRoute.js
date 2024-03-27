@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
   try {
     res.json(products);
   } catch (error) {
+    
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

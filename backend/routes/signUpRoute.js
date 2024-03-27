@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
 
     // Check if there is any data returned
     if (!data || data.length === 0) {
+      console.log('No signups found.');
       return res.status(404).json({ message: 'No signups found.' });
     }
 
@@ -26,8 +27,40 @@ router.post('/', async (req, res) => {
   const { username, email, password, userType } = req.body;
   // Check if any required field is missing
 
-  if (!username || !email || !password || !userType) {
-    return res.status(400).json({ message: 'Missing required fields' });
+  // if (!username || !email || !password || !userType) {
+  //   return res.status(400).json({ message: 'Missing required fields' });
+  // }
+  if (!username) {
+    return res.status(400).json({ message: 'Username is required' });
+  }
+
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required' });
+  }
+
+  if (!password) {
+    return res.status(400).json({ message: 'Password is required' });
+  }
+
+  if (!userType) {
+    return res.status(400).json({ message: 'User type is required' });
+  }
+
+  const existingUser = await Users.findOne({
+    $or: [{ username }, { email }],
+  });
+
+  if (existingUser) {
+    const errors = [];
+    if (existingUser.username === username) {
+      console.log('Username is already in use');
+      return res.status(400).json({ message: 'Username is already in use' });
+    }
+    if (existingUser.email === email) {
+      console.log('Email is already in use');
+      return res.status(400).json({ message: 'Email is already in use' });
+    }
+    return res.status(400).json({ errors });
   }
 
   bcrypt.hash(password, 10).then((hash) => {
