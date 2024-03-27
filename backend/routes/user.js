@@ -10,9 +10,11 @@ router.get('/:id', async (req, res) => {
     if (user) {
       res.json(user);
     } else {
+      console.log('User not found');
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
+    console.log('Internal Server Error');
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -22,11 +24,17 @@ router.delete('/:id', async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
 
     if (deletedUser) {
+      console.log('User deleted successfully');
+
       res.json({ message: 'User deleted successfully', deletedUser });
     } else {
+      console.log('User not found');
+
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
+    console.log('Error deleting user:');
+
     console.error('Error deleting user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -43,6 +51,14 @@ router.post('/', async (req, res) => {
           .json({ message: `Missing required field: ${field}` });
       }
     }
+    // Check if the user already exists
+    const { username } = req.body;
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      console.log('User already exists');
+      return res.status(400).json({ message: 'User already exists' });
+    }
+    // create the user
     User.create(req.body)
       .then((users) => res.json(users))
       .catch((err) => res.json(err));
