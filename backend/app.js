@@ -1,30 +1,53 @@
 import express from 'express';
-import User from './Schema/MyUser'; // Import User model
+import dotenv from 'dotenv';
+dotenv.config();
+import connectDB from './config/database.js';
+import cors from 'cors';
+import path from 'path';
+import productRoute from './routes/productRoutes.js';
+import userRoute from './routes/user.js';
+import shippingRoute from './routes/shippingRoute.js';
+import productsRoute from './routes/productsRoute.js';
+import orderRoute from './routes/orderRoute.js';
+import signUpRoute from './routes/signUpRoute.js';
+import loginRoute from './routes/loginRoute.js';
 
 const app = express();
-
-app.post('/api/users', async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(200).json(user);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: 'Failed to create user.' });
-  }
+// app.get('/', (req, res) => {
+//   res.send('Hello, welcome to the server!');
+// });
+// to use paypal
+app.use('/api/config/paypal', (req, res) => {
+  res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
 });
-// get user
-app.get('/api/users', async (req, res) => {
-  const data = await User.find();
+// for render to
+const __dirname = path.resolve();
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('Hello, welcome to the server!');
+  });
+}
 
-  res.json(data);
-});
-
+// // Middleware to connect to front end
+app.use(express.json());
+app.use(cors());
+// Mount the Router
+app.use('/api/product', productRoute);
+app.use('/api/users', userRoute);
+app.use('/api/shipping', shippingRoute);
+app.use('/api/products', productsRoute);
+app.use('/api/order', orderRoute);
+app.use('/api/signup', signUpRoute);
+app.use('/api/login', loginRoute);
 export default app;
 
-
 ////this is my ServerApiVersion.js code
-
-
 
 // import express from 'express';
 // import dotenv from 'dotenv';
