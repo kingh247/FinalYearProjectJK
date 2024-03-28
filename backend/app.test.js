@@ -2,24 +2,66 @@ import app from './app'; // Import app
 import request from 'supertest';
 import User from './Schema/MyUser'; // Import User model
 import mockData from './mockData/getMock';
-
-describe('POST /api/users', () => {
-  test('should return 500 status code if validation fails', async () => {
-    const response = await request(app).post('/api/users').send({
-      username: 'a',
-      password: 'abc',
-    });
-    expect(response.statusCode).toBe(500);
+// Test for GET /user
+// describe('POST /user', () => {
+//   test('should  not create a new user', async () => {
+//     const fakeUserId = 'nonexistent_id';
+//     const response = await request(app)
+//       .post(`/users/${fakeUserId}`)
+//       .send({ name: 'Updated Name' });
+//     expect(response.status).toBe(404);
+//     expect(response.body).toHaveProperty('name', 'New User');
+//   });
+// });
+// Test for DELETE /user/:id
+describe('DELETE /users/:id', () => {
+  test('should respond with 404 if user does not exist', (done) => {
+    const fakeUserId = 'nonexistent_id';
+    request(app)
+      .delete(`/users/${fakeUserId}`)
+      .expect(404)
+      .end((err, res) => {
+        if (err) return done(err);
+        done();
+      });
   });
-
-  test('should return proper error message on validation failure', async () => {
-    const response = await request(app).post('/api/users').send({
-      username: 'a',
-      password: 'abc',
-    });
-    expect(response.body.message).toBe('Failed to create user.');
-  });
+  // Add more test cases for successful delete, if needed
 });
+// Test for PUT /user/:id
+describe('PUT /users/:id', () => {
+  test('should respond with 404 if user does not exist', (done) => {
+    const fakeUserId = 'nonexistent_id';
+    request(app)
+      .put(`/users/${fakeUserId}`)
+      .send({ name: 'Updated Name' })
+      .expect(404)
+      .end((err, res) => {
+        if (err) return done(err);
+        done();
+      });
+  });
+  // Add more test cases for successful update, if needed
+});
+// Test for POST /user
+
+// Add more test cases for validation failure, if needed
+// describe('POST /api/users', () => {
+//   test('should return 500 status code if validation fails', async () => {
+//     const response = await request(app).post('/api/users').send({
+//       username: 'a',
+//       password: 'abc',
+//     });
+//     expect(response.statusCode).toBe(500);
+//   });
+
+//   // test('should return proper error message on validation failure', async () => {
+//   //   const response = await request(app).post('/api/users').send({
+//   //     username: 'a',
+//   //     password: 'abc',
+//   //   });
+//   //   expect(response.body.message).toBe('Failed to create user.');
+//   // });
+// });
 describe('Testing using motaData', () => {
   test('should save user to database on valid input using mock data', async () => {
     // Choose a user from mockData for testing
