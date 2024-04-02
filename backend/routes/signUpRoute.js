@@ -3,6 +3,7 @@ const router = express.Router();
 import Users from '../Schema/MyLogin.js';
 import bcrypt from 'bcrypt';
 
+
 // Get signups
 router.get('/', async (req, res) => {
   try {
@@ -26,10 +27,11 @@ router.post('/', async (req, res) => {
   // Signup  route using bcrypt
   const { username, email, password, userType } = req.body;
   // Check if any required field is missing
+  
 
-  if (username && email && password && userType) {
-    return res.status(200).json({ message: 'Fields ok' });
-  }
+  // if (username && email && password && userType) {
+  //   return res.status(200).json({ message: 'Fields ok' });
+  // }
 
   if (!username) {
     return res.status(400).json({ message: 'Username is required' });
