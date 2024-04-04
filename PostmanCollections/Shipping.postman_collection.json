@@ -8,6 +8,55 @@
 	},
 	"item": [
 		{
+			"name": "Senarios Failing",
+			"item": [
+				{
+					"name": "Missing fileds Add Shipping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response JSON\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the status code is 200\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \r\n    \r\n    \"addressLine1\": \"3 Ballo Road\",\r\n    \"addressLine2\": \"Springtown\",\r\n    \"city\": \"Derry\",\r\n    \"postalCode\": \"BT82 9KL \"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/shipping",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"shipping"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Add Shipping",
 			"event": [
 				{
@@ -22,7 +71,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -31,7 +81,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n  \r\n    \"fullName\": \"John kingh\",\r\n    \"addressLine1\": \"3 Ballo Road\",\r\n    \"addressLine2\": \"Springtown\",\r\n    \"city\": \"Derry\",\r\n    \"postalCode\": \"BT82 9KL \"\r\n\r\n}",
+					"raw": " {\r\n  \r\n    \"fullName\": \"John kingh\",\r\n    \"addressLine1\": \"3 Ballo Road\",\r\n    \"addressLine2\": \"Springtown\",\r\n    \"city\": \"Derry\",\r\n    \"postalCode\": \"BT82 9KL \",\r\n    \"country\" : \"Northern Ireland\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,7 +116,8 @@
 							"});\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -83,13 +134,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/shipping/65eed8eb9ea68fa1b42346b4",
+					"raw": "{{baseUrl}}/shipping/660e98a522c3833da1553f85",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"shipping",
-						"65eed8eb9ea68fa1b42346b4"
+						"660e98a522c3833da1553f85"
 					]
 				}
 			},
