@@ -36,24 +36,24 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import Product from '../../Schema/Product';
 import app from '../../app';
 
-// Declare a variable to hold the MongoDB Memory Server
-let mongoServer;
+// // Declare a variable to hold the MongoDB Memory Server
+// let mongoServer;
 
-// Before all tests, start the MongoDB Memory Server and establish a connection
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const mongoUri = mongoServer.getUri();
-  await mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-});
+// // Before all tests, start the MongoDB Memory Server and establish a connection
+// beforeAll(async () => {
+//   mongoServer = await MongoMemoryServer.create();
+//   const mongoUri = mongoServer.getUri();
+//   await mongoose.connect(mongoUri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+// });
 
-// After all tests, stop the MongoDB Memory Server and close the connection
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
+// // After all tests, stop the MongoDB Memory Server and close the connection
+// afterAll(async () => {
+//   await mongoose.disconnect();
+//   await mongoServer.stop();
+// });
 
 // describe('GET /api/product', () => {
 //   test('should return 200 status code', async () => {
@@ -66,7 +66,7 @@ afterAll(async () => {
 describe('POST /api/product', () => {
   test('should add a new product and return 200 status code', async () => {
     const productData = {
-      MyName: 'test Laptop9',
+      MyName: 'test Laptop23rr',
       MyImage: '/images/laptop.jpg',
       MyDescription:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',

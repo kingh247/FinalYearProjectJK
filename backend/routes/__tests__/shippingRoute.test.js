@@ -26,24 +26,24 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import Shipping from '../../Schema/Shipping';
 import app from '../../app';
 
-// Declare a variable to hold the MongoDB Memory Server
-let mongoServer;
+// // Declare a variable to hold the MongoDB Memory Server
+// let mongoServer;
 
-// Before all tests, start the MongoDB Memory Server and establish a connection
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const mongoUri = mongoServer.getUri();
-  await mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-});
+// // Before all tests, start the MongoDB Memory Server and establish a connection
+// beforeAll(async () => {
+//   mongoServer = await MongoMemoryServer.create();
+//   const mongoUri = mongoServer.getUri();
+//   await mongoose.connect(mongoUri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+// });
 
-// After all tests, stop the MongoDB Memory Server and close the connection
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
+// // After all tests, stop the MongoDB Memory Server and close the connection
+// afterAll(async () => {
+//   await mongoose.disconnect();
+//   await mongoServer.stop();
+// });
 
 describe('POST /shipping', () => {
   test('should return 400 no data sent', async () => {

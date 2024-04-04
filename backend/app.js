@@ -11,7 +11,8 @@ import productsRoute from './routes/productsRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import signUpRoute from './routes/signUpRoute.js';
 import loginRoute from './routes/loginRoute.js';
-
+// connect to database
+connectDB();
 const app = express();
 // app.get('/', (req, res) => {
 //   res.send('Hello, welcome to the server!');
