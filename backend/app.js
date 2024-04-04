@@ -21,7 +21,7 @@ const app = express();
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Your API',
+      title: 'Eccomere B2B project',
       version: '1.0.0',
       description: 'API documentation generated with Swagger',
       contact: {
@@ -59,12 +59,144 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(cors());
 // Mount the Router
+// app.use('/api/product', productRoute);
+// app.use('/api/users', userRoute);
+// app.use('/api/shipping', shippingRoute);
+// app.use('/api/products', productsRoute);
+// app.use('/api/order', orderRoute);
+// app.use('/api/signup', signUpRoute);
+// app.use('/api/login', loginRoute);
+/**
+ /**
+ * @swagger
+ * /api/product:
+ *   get:
+ *     summary: Retrieve all products
+ *     description: Retrieve a list of all products.
+ *     responses:
+ *       200:
+ *         description: A list of products.
+ */
+/**
+ * @swagger
+ * /api/product/{id}:
+ *   get:
+ *     summary: Retrieve a product by ID
+ *     description: Retrieve a single product by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the product to retrieve.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The requested product.
+ *       404:
+ *         description: Product not found.
+ */
+
 app.use('/api/product', productRoute);
+
+/**
+ * @swagger
+ * /api/users:
+ *   name: Products
+ *   get:
+ *     summary: Retrieve all users
+ *     description: Retrieve a list of all users.
+ *     responses:
+ *       200:
+ *         description: A list of users.
+ */
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Retrieve a users by ID
+ *     description: Retrieve a single users by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the users to retrieve.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The requested users.
+ *       404:
+ *         description: users not found.
+ */
 app.use('/api/users', userRoute);
+
+/**
+ * @swagger
+ * /api/shipping:
+ *   name: Shipping
+ *   get:
+ *     summary: Retrieve all shipping details
+ *     description: Retrieve a list of all shipping details.
+ *     responses:
+ *       200:
+ *         description: A list of shipping details.
+ */
+
 app.use('/api/shipping', shippingRoute);
+
+/**
+ * @swagger
+ * /api/products:
+ *   name: Products
+ *   get:
+ *     summary: Retrieve all products
+ *     description: Retrieve a list of all products.
+ *     responses:
+ *       200:
+ *         description: A list of products.
+ */
+
 app.use('/api/products', productsRoute);
+/**
+ * @swagger
+ * /api/order:
+ *   name: Order
+ *   get:
+ *     summary: Retrieve all orders
+ *     description: Retrieve a list of all orders.
+ *     responses:
+ *       200:
+ *         description: A list of orders.
+ */
+
 app.use('/api/order', orderRoute);
+/**
+ * @swagger
+ * /api/signup:
+ *   name: Signup
+ *   get:
+ *     summary: Retrieve all signups
+ *     description: Retrieve a list of all signups.
+ *     responses:
+ *       200:
+ *         description: A list of signups.
+ */
+
 app.use('/api/signup', signUpRoute);
+
+/**
+ * @swagger
+ * /api/login:
+ *   name: Login
+ *   get:
+ *     summary: Retrieve all logins
+ *     description: Retrieve a list of all logins.
+ *     responses:
+ *       200:
+ *         description: A list of logins.
+ */
+
 app.use('/api/login', loginRoute);
 export default app;
 
