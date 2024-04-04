@@ -68,6 +68,8 @@ app.use(cors());
 // app.use('/api/login', loginRoute);
 
 // below is used to add swagger docs and testing the endpout routes..
+
+//..... http://localhost:5000/api-docs/#/ ......
 /**
  /**
  * @swagger
