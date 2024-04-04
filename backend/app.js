@@ -11,9 +11,29 @@ import productsRoute from './routes/productsRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import signUpRoute from './routes/signUpRoute.js';
 import loginRoute from './routes/loginRoute.js';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 // connect to database
 connectDB();
 const app = express();
+
+// Swagger options
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'Your API',
+      version: '1.0.0',
+      description: 'API documentation generated with Swagger',
+      contact: {
+        name: 'John kingh',
+      },
+      server: ['https://localhost:5000'],
+    },
+  },
+  apis: ['./app.js'], // Path to the API routes file(s)
+};
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // app.get('/', (req, res) => {
 //   res.send('Hello, welcome to the server!');
 // });
