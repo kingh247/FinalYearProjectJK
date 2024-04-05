@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// get user id from mongo database, passing in the User mongoose schema
+// get shipping id from mongo database, passing in the User mongoose schema
 router.get('/:id', async (req, res) => {
   try {
     const shipping = await Shipping.findById(req.params.id);
@@ -28,8 +28,8 @@ router.get('/:id', async (req, res) => {
     if (shipping) {
       res.json(shipping);
     } else {
-      console.log('User not found');
-      res.status(404).json({ error: 'User not found' });
+      console.log('shipping not found');
+      res.status(404).json({ error: 'shipping not found' });
     }
   } catch (error) {
     console.log('Internal Server Error');
@@ -37,8 +37,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+ // insert shiipppinga address to database using post
 router.post('/', async (req, res) => {
-  // insert product to database using post
+ 
   try {
     const { fullName, addressLine1, addressLine2, postalCode, city, country } =
       req.body;

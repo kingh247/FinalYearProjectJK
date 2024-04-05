@@ -14,7 +14,7 @@ import loginRoute from './routes/loginRoute.js';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 // connect to database
-connectDB();
+connectDB(); // used for the testing comment out when not using it
 const app = express();
 
 // Swagger options
