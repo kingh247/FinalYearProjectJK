@@ -66,7 +66,7 @@ import app from '../../app';
 describe('POST /api/product', () => {
   test('should add a new product and return 200 status code', async () => {
     const productData = {
-      MyName: 'test Laptop23rr',
+      MyName: 'test Laptop23rrty',
       MyImage: '/images/laptop.jpg',
       MyDescription:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
