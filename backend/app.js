@@ -13,27 +13,36 @@ import signUpRoute from './routes/signUpRoute.js';
 import loginRoute from './routes/loginRoute.js';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import yaml from 'js-yaml'; // Import yaml library
+import fs from 'fs';
 // connect to database
 connectDB(); // used for the testing comment out when not using it
 const app = express();
 
-// Swagger options
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      title: 'Eccomere B2B project',
-      version: '1.0.0',
-      description: 'API documentation generated with Swagger',
-      contact: {
-        name: 'John kingh',
-      },
-      server: ['https://localhost:5000'],
-    },
-  },
-  apis: ['./app.js'], // Path to the API routes file(s)
-};
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
+// Load YAML file
+const swaggerFile = fs.readFileSync('./swaggerCopy.yaml', 'utf8');
+const swaggerSpec = yaml.load(swaggerFile);
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// // Swagger options
+// const swaggerOptions = {
+//   swaggerDefinition: {
+//     info: {
+//       title: 'Eccomere B2B project',
+//       version: '1.0.0',
+//       description: 'API documentation generated with Swagger',
+//       contact: {
+//         name: 'John kingh',
+//       },
+//       server: ['https://localhost:5000'],
+//     },
+//   },
+//   apis: ['./app.js'], // Path to the API routes file(s)
+// };
+// const swaggerSpec = swaggerJSDoc(swaggerOptions);
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // app.get('/', (req, res) => {
 //   res.send('Hello, welcome to the server!');
 // });
@@ -59,532 +68,547 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(cors());
 // Mount the Router
-// app.use('/api/product', productRoute);
-// app.use('/api/users', userRoute);
-// app.use('/api/shipping', shippingRoute);
-// app.use('/api/products', productsRoute);
-// app.use('/api/order', orderRoute);
-// app.use('/api/signup', signUpRoute);
-// app.use('/api/login', loginRoute);
+app.use('/api/product', productRoute);
+app.use('/api/users', userRoute);
+app.use('/api/shipping', shippingRoute);
+app.use('/api/products', productsRoute);
+app.use('/api/order', orderRoute);
+app.use('/api/signup', signUpRoute);
+app.use('/api/login', loginRoute);
 
 // below is used to add swagger docs and testing the endpout routes..
 
 //..... http://localhost:5000/api-docs/#/ ......
-/**
- /**
- * @swagger
- * /api/product:
- *   post:
- *     summary: Create new product
- *     description: Create new product with provided details.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               MyName:
- *                 type: string
- *     responses:
- *       200:
- *         description: Product created successfully.
- *       400:
- *         description: Bad request, missing required fields or product with the same name already exists.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/product:
- *   get:
- *     summary: Retrieve all products
- *     description: Retrieve a list of all products.
- *     responses:
- *       200:
- *         description: A list of products.
- *       404:
- *         description: No products found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/product:
- *   delete:
- *     summary: Delete product by ID
- *     description: Delete product data by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the product to delete.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Product data deleted successfully.
- *       404:
- *         description: Product not found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/product:
- *   put:
- *     summary: Update product by ID
- *     description: Update product data by its ID with provided details.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the product to update.
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               MyName:
- *                 type: string
- *     responses:
- *       200:
- *         description: Product updated successfully.
- *       404:
- *         description: Product not found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/product/{id}:
- *   get:
- *     summary: Retrieve a product by ID
- *     description: Retrieve a single product by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the product to retrieve.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: The requested product.
- *       404:
- *         description: Product not found.
- *       500:
- *         description: Internal server error.
- */
 
-app.use('/api/product', productRoute);
+// // /**
+// //  * @swagger
+// //  * components:
+// //  *  schemas:
+// //  *    CreateShipping:
+// //  *      type: object
+// //  *      required:
+// //  *        - fullName
+// //  *        - addressLine1
+// //  *        - addressLine2
+// //  *        - postalCode
+// //  *        - city
+// //  *        - country
+// //  *      properties:
+// //  *       fullName:
+// //  *          type: string
+// //  *          default: 'johnkingh'
+// //  *        addressLine1:
+// //  *          type: string
+// //  *          default: 'johnkingh'
+// //  *        addressLine2:
+// //  *          type: string
+// //  *          default: 'johnkingh'
+// //  *        postalCode:
+// //  *          type: string
+// //  *          default: 'johnkingh'
+// //  *        city:
+// //  *         type: string
+// //  *         default: 'johnkingh'
+// //  *        country:
+// //  *          type: string
+// //  *          default: 'johnkingh'
+// //  *
+// //  */
 
-/**
- * @swagger
- * /api/users:
- *   name: Products
- *   get:
- *     summary: Retrieve all users
- *     description: Retrieve a list of all users.
- *     responses:
- *       200:
- *         description: A list of users.
- *       404:
- *         description: No users found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/users:
- *   name: Products
- *   delete:
- *     summary: Delete user by ID
- *     description: Delete user data by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the user to delete.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: User data deleted successfully.
- *       404:
- *         description: User not found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/users/{id}:
- *   get:
- *     summary: Retrieve a users by ID
- *     description: Retrieve a single users by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the users to retrieve.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: The requested users.
- *       404:
- *         description: users not found.
- */
-/**
- * @swagger
- * /api/users/{id}:
- *   get:
- *     summary: Retrieve a users by ID
- *     description: Retrieve a single users by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the users to retrieve.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: The requested users.
- *       404:
- *         description: users not found.
- */
-/**
- * @swagger
- * /api/users/{id}:
- *   post:
- *     summary: Create new user
- *     description: Create new user with provided details.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: User created successfully.
- *       400:
- *         description: Bad request, missing required fields.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/users/{id}:
- *   put:
- *     summary: Update user by ID
- *     description: Update user data by its ID with provided details.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the user to update.
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: User updated successfully.
- *       404:
- *         description: User not found.
- *       500:
- *         description: Internal server error.
- */
-app.use('/api/users', userRoute);
+// /**
+//  * @swagger
+//  * /api/product:
+//  *   get:
+//  *     tags:
+//  *      - Product
+//  *     summary: Retrieve all products
+//  *     description: Retrieve a list of all products.
+//  *     responses:
+//  *       200:
+//  *         description: A list of products.
+//  *       404:
+//  *         description: No products found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/product/{id}:
+//  *   get:
+//  *     tags:
+//  *      - Product
+//  *     summary: Retrieve a product by ID
+//  *     description: Retrieve a single product by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the product to retrieve.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: The requested product.
+//  *       404:
+//  *         description: Product not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/product:
+//  *   post:
+//  *     tags:
+//  *      - Product
+//  *     summary: Create new product
+//  *     description: Create new product with provided details.
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               MyName:
+//  *                 type: string
+//  *     responses:
+//  *       200:
+//  *         description: Product created successfully.
+//  *       400:
+//  *         description: Bad request, missing required fields or product with the same name already exists.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/product:
+//  *   put:
+//  *     tags:
+//  *      - Product
+//  *     summary: Update product by ID
+//  *     description: Update product data by its ID with provided details.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the product to update.
+//  *         schema:
+//  *           type: string
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               MyName:
+//  *                 type: string
+//  *     responses:
+//  *       200:
+//  *         description: Product updated successfully.
+//  *       404:
+//  *         description: Product not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/product:
+//  *   delete:
+//  *     tags:
+//  *      - Product
+//  *     summary: Delete product by ID
+//  *     description: Delete product data by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the product to delete.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: Product data deleted successfully.
+//  *       404:
+//  *         description: Product not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
 
-/**
- * @swagger
- * /api/shipping:
- *   name: Shipping
- *   get:
- *     summary: Retrieve all shipping details
- *     description: Retrieve a list of all shipping details.
- *     responses:
- *       200:
- *         description: A list of shipping details.
- */
-/**
- * /**
- * @swagger
- * /api/shipping:
- *   name: Shipping
- *   post:
- *     summary: Create new shipping data
- *     description: Create new shipping data with provided details.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               fullName:
- *                 type: string
- *               addressLine1:
- *                 type: string
- *               addressLine2:
- *                 type: string
- *               postalCode:
- *                 type: string
- *               city:
- *                 type: string
- *               country:
- *                 type: string
- *     responses:
- *       200:
- *         description: Shipping data created successfully.
- *       400:
- *         description: Bad request, missing required fields.
- *       500:
- *         description: Internal server error.
- */
-/**
- * /**
- * @swagger
- * /api/shipping/{id}:
- *   name: Shipping
- *   get:
- *     summary: Get shipping data by ID
- *     description: Retrieve shipping data by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the shipping data to retrieve.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Shipping data retrieved successfully.
- *       404:
- *         description: Shipping data not found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * /**
- * @swagger
- * /api/shipping:
- *   name: Shipping
- *   put:
- *     summary: Update shipping data by ID
- *     description: Update shipping data by its ID with provided details.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the shipping data to update.
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               fullName:
- *                 type: string
- *               addressLine1:
- *                 type: string
- *               addressLine2:
- *                 type: string
- *               postalCode:
- *                 type: string
- *               city:
- *                 type: string
- *               country:
- *                 type: string
- *     responses:
- *       200:
- *         description: Shipping data updated successfully.
- *       404:
- *         description: Shipping data not found.
- *       500:
- *         description: Internal server error.
- *   delete:
- *     summary: Delete shipping data by ID
- *     description: Delete shipping data by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the shipping data to delete.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Shipping data deleted successfully.
- *       404:
- *         description: Shipping data not found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/shipping:
- *   name: Shipping
- *   delete:
- *     summary: Delete shipping data by ID
- *     description: Delete shipping data by its ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the shipping data to delete.
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Shipping data deleted successfully.
- *       404:
- *         description: Shipping data not found.
- *       500:
- *         description: Internal server error.
- */
-app.use('/api/shipping', shippingRoute);
+// app.use('/api/product', productRoute);
 
-/**
- * @swagger
- * /api/products:
- *   name: Products
- *   get:
- *     summary: Retrieve all products
- *     description: Retrieve a list of all products.
- *     responses:
- *       200:
- *         description: A list of products.
- */
+// /**
+//  * @swagger
+//  * /api/users:
+//  *   get:
+//  *     tags:
+//  *      - Users
+//  *     summary: Retrieve all users
+//  *     description: Retrieve a list of all users.
+//  *     responses:
+//  *       200:
+//  *         description: A list of users.
+//  *       404:
+//  *         description: No users found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/users/{id}:
+//  *   post:
+//  *     tags:
+//  *      - Users
+//  *     summary: Create new user
+//  *     description: Create new user with provided details.
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             $ref: '#/components/schemas/CreateShipping'
+//  *     responses:
+//  *       200:
+//  *         description: User created successfully.
+//  *       400:
+//  *         description: Bad request, missing required fields.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/users/{id}:
+//  *   put:
+//  *     tags:
+//  *      - Users
+//  *     summary: Update user by ID
+//  *     description: Update user data by its ID with provided details.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the user to update.
+//  *         schema:
+//  *           type: string
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *     responses:
+//  *       200:
+//  *         description: User updated successfully.
+//  *       404:
+//  *         description: User not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/users:
+//  *   delete:
+//  *     tags:
+//  *      - Users
+//  *     summary: Delete user by ID
+//  *     description: Delete user data by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the user to delete.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: User data deleted successfully.
+//  *       404:
+//  *         description: User not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
 
-app.use('/api/products', productsRoute);
-/**
- * @swagger
- * /api/order:
- *   name: Order
- *   get:
- *     summary: Retrieve all orders
- *     description: Retrieve a list of all orders.
- *     responses:
- *       200:
- *         description: A list of orders.
- */
+// /**
+//  * @swagger
+//  * /api/users/{id}:
+//  *   get:
+//  *     tags:
+//  *      - Users
+//  *     summary: Retrieve a users by ID
+//  *     description: Retrieve a single users by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the users to retrieve.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: The requested users.
+//  *       404:
+//  *         description: users not found.
+//  */
 
-app.use('/api/order', orderRoute);
-/**
- * @swagger
- * /api/signup:
- *   name: Signup
- *   get:
- *     summary: Retrieve all signups
- *     description: Retrieve a list of all signups.
- responses:
- *       200:
- *         description: A list of signups.
- *       404:
- *         description: No signups found.
- *       500:
- *         description: Internal server error.
- */
-/**
- * @swagger
- * /api/signup:
- *   post:
- *     summary: Signup user
- *     description: Register a new user with username, email, password, and user type.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *               userType:
- *                 type: string
- *     responses:
- *       201:
- *         description: Signup successful.
- *       400:
- *         description: Bad request, missing required fields or username/email already in use.
- *       500:
- *         description: Internal server error.
- */
+// app.use('/api/users', userRoute);
 
-app.use('/api/signup', signUpRoute);
+// /**
+//  * @swagger
+//  * /api/shipping:
+//  *   get:
+//  *     tags:
+//  *      - Shipping
+//  *     summary: Retrieve all shipping details
+//  *     description: Retrieve a list of all shipping details.
+//  *     responses:
+//  *       200:
+//  *         description: A list of shipping details.
+//  */
+// /**
+//  * /**
+//  * @swagger
+//  * /api/shipping:
+//  *   post:
+//  *     tags:
+//  *      - Shipping
+//  *     summary: Create new shipping data
+//  *     description: Create new shipping data with provided details.
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             $ref: '#/components/schemas/CreateShipping'
+//  *     responses:
+//  *       200:
+//  *         description: Shipping data created successfully.
+//  *       400:
+//  *         description: Bad request, missing required fields.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * /**
+//  * @swagger
+//  * /api/shipping/{id}:
+//  *   get:
+//  *     tags:
+//  *      - Shipping
+//  *     summary: Get shipping data by ID
+//  *     description: Retrieve shipping data by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the shipping data to retrieve.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: Shipping data retrieved successfully.
+//  *       404:
+//  *         description: Shipping data not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * /**
+//  * @swagger
+//  * /api/shipping:
+//  *   put:
+//  *     tags:
+//  *      - Shipping
+//  *     summary: Update shipping data by ID
+//  *     description: Update shipping data by its ID with provided details.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the shipping data to update.
+//  *         schema:
+//  *           type: string
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               fullName:
+//  *                 type: string
+//  *     responses:
+//  *       200:
+//  *         description: Shipping data updated successfully.
+//  *       404:
+//  *         description: Shipping data not found.
+//  *       500:
+//  *         description: Internal server error.
+//  *   delete:
+//  *     summary: Delete shipping data by ID
+//  *     description: Delete shipping data by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the shipping data to delete.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: Shipping data deleted successfully.
+//  *       404:
+//  *         description: Shipping data not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/shipping:
+//  *   delete:
+//  *     tags:
+//  *      - Shipping
+//  *     summary: Delete shipping data by ID
+//  *     description: Delete shipping data by its ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID of the shipping data to delete.
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: Shipping data deleted successfully.
+//  *       404:
+//  *         description: Shipping data not found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// app.use('/api/shipping', shippingRoute);
 
-/**
- * @swagger
- * /api/login:
- *   name: Login
- *   get:
- *     summary: Retrieve all logins
- *     description: Retrieve a list of all logins.
- *     responses:
- *       200:
- *         description: A list of logins.
- *       404:
- *         description: No signups found.
- *       500:
- *         description: Internal server error.
- */
+// /**
+//  * @swagger
+//  * /api/signup:
+//  *   get:
+//  *     tags:
+//  *      - Sign Up
+//  *     summary: Retrieve all signups
+//  *     description: Retrieve a list of all signups.
+//  responses:
+//  *       200:
+//  *         description: A list of signups.
+//  *       404:
+//  *         description: No signups found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+// /**
+//  * @swagger
+//  * /api/signup:
+//  *   post:
+//  *     tags:
+//  *      - Sign Up
+//  *     summary: Signup user
+//  *     description: Register a new user with username, email, password, and user type.
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               username:
+//  *                 type: string
+//  *               email:
+//  *                 type: string
+//  *               password:
+//  *                 type: string
+//  *               userType:
+//  *                 type: string
+//  *     responses:
+//  *       201:
+//  *         description: Signup successful.
+//  *       400:
+//  *         description: Bad request, missing required fields or username/email already in use.
+//  *       500:
+//  *         description: Internal server error.
+//  */
 
-/**
- * @swagger
- * /api/login:
- *   post:
- *     summary: Login user
- *     description: Authenticate a user and generate JWT token.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: User authenticated successfully.
- *       401:
- *         description: Invalid credentials.
- *       500:
- *         description: Internal Server Error.
- */
+// app.use('/api/signup', signUpRoute);
 
-app.use('/api/login', loginRoute);
+// /**
+//  * @swagger
+//  * /api/login:
+//  *   get:
+//  *     tags:
+//  *      - Login
+//  *     summary: Retrieve all logins
+//  *     description: Retrieve a list of all logins.
+//  *     responses:
+//  *       200:
+//  *         description: A list of logins.
+//  *       404:
+//  *         description: No signups found.
+//  *       500:
+//  *         description: Internal server error.
+//  */
+
+// /**
+//  * @swagger
+//  * /api/login:
+//  *   post:
+//  *     tags:
+//  *      - Login
+//  *     summary: Login user
+//  *     description: Authenticate a user and generate JWT token.
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               username:
+//  *                 type: string
+//  *               password:
+//  *                 type: string
+//  *     responses:
+//  *       200:
+//  *         description: User authenticated successfully.
+//  *       401:
+//  *         description: Invalid credentials.
+//  *       500:
+//  *         description: Internal Server Error.
+//  */
+
+// app.use('/api/login', loginRoute);
+// /**
+//  * @swagger
+//  * /api/products:
+//  *   get:
+//  *     tags:
+//  *      - Products
+//  *     summary: Retrieve all products form backend
+//  *     description: Retrieve a list of all products.
+//  *     responses:
+//  *       200:
+//  *         description: A list of products.
+//  */
+
+// app.use('/api/products', productsRoute);
+// /**
+//  * @swagger
+//  * /api/order:
+//  *   get:
+//  *     tags:
+//  *      - Order
+//  *     summary: Retrieve all orders
+//  *     description: Retrieve a list of all orders.
+//  *     responses:
+//  *       200:
+//  *         description: A list of orders.
+//  */
+
+// app.use('/api/order', orderRoute);
 export default app;
 
 ////this is my ServerApiVersion.js code
