@@ -1,32 +1,18 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
+  title: Eccomerce Website B2B - OpenAPI 3.0
   description: |-
-    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
-    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
-    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
-    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
-
-    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
-
-    Some useful links:
-    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
-    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
-  termsOfService: http://swagger.io/terms/
-  contact:
-    email: apiteam@swagger.io
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
+    This is used to help test the endpoints that are used in the ecccomrce
 servers:
-  - url: https://petstore3.swagger.io/api/v3
+  - url: http://localhost:5000/api
 tags:
-  - name: pet
+  - name: Product
     description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Shipping
+    description: Operations related to shipping
     externalDocs:
       description: Find out more
       url: http://swagger.io
@@ -38,429 +24,319 @@ tags:
   - name: user
     description: Operations about user
 paths:
-  /pet:
+  /product:
+    get:
+      tags:
+        - Product
+      summary: Get all products
+      description: Retrieve a list of all products
+      operationId: getAllProducts
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags:
+        - Product
+      summary: Add a new product
+      description: Add a new product to the store
+      operationId: addProduct
+      requestBody:
+        description: New product object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '422':
+          description: Unprocessable entity
+  /product/{id}:
+    get:
+      tags:
+        - Product
+      summary: Get a product by ID
+      description: Get a product by its ID
+      operationId: getProductById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
     put:
       tags:
-        - pet
-      summary: Update an existing pet
-      description: Update an existing pet by Id
-      operationId: updatePet
+        - Product
+      summary: Update an existing product
+      description: Update an existing product by ID
+      operationId: updateProduct
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product to update
+          required: true
+          schema:
+            type: string
       requestBody:
-        description: Update an existent pet in the store
+        description: Updated product object
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: '#/components/schemas/Product'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
-        required: true
+              $ref: '#/components/schemas/Product'
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: '#/components/schemas/Product'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid ID supplied
+                $ref: '#/components/schemas/Product'
         '404':
-          description: Pet not found
+          description: Product not found
         '422':
-          description: Validation exception
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-    post:
+          description: Unprocessable entity
+    delete:
       tags:
-        - pet
-      summary: Add a new pet to the store
-      description: Add a new pet to the store
-      operationId: addPet
-      requestBody:
-        description: Create a new pet in the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
-        required: true
+        - Product
+      summary: Delete a product
+      description: Delete a product by ID
+      operationId: deleteProduct
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+  /shipping:
+    get:
+      tags:
+        - Shipping
+      summary: Get all shipping addresses
+      description: Retrieve a list of all shipping addresses
+      operationId: getAllShippingAddresses
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid input
-        '422':
-          description: Validation exception
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-  /pet/findByStatus:
-    get:
-      tags:
-        - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
-      operationId: findPetsByStatus
-      parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: false
-          explode: true
-          schema:
-            type: string
-            default: available
-            enum:
-              - available
-              - pending
-              - sold
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Pet'
+                  $ref: '#/components/schemas/ShippingAddress'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid status value
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-  /pet/findByTags:
-    get:
-      tags:
-        - pet
-      summary: Finds Pets by tags
-      description: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-      operationId: findPetsByTags
-      parameters:
-        - name: tags
-          in: query
-          description: Tags to filter by
-          required: false
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid tag value
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-  /pet/{petId}:
-    get:
-      tags:
-        - pet
-      summary: Find pet by ID
-      description: Returns a single pet
-      operationId: getPetById
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet to return
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-      security:
-        - api_key: []
-        - petstore_auth:
-            - write:pets
-            - read:pets
+                  $ref: '#/components/schemas/ShippingAddress'
     post:
       tags:
-        - pet
-      summary: Updates a pet in the store with form data
-      description: ''
-      operationId: updatePetWithForm
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet that needs to be updated
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: name
-          in: query
-          description: Name of pet that needs to be updated
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Status of pet that needs to be updated
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Invalid input
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-    delete:
-      tags:
-        - pet
-      summary: Deletes a pet
-      description: delete a pet
-      operationId: deletePet
-      parameters:
-        - name: api_key
-          in: header
-          description: ''
-          required: false
-          schema:
-            type: string
-        - name: petId
-          in: path
-          description: Pet id to delete
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '400':
-          description: Invalid pet value
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-  /pet/{petId}/uploadImage:
-    post:
-      tags:
-        - pet
-      summary: uploads an image
-      description: ''
-      operationId: uploadFile
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet to update
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: additionalMetadata
-          in: query
-          description: Additional Metadata
-          required: false
-          schema:
-            type: string
+        - Shipping
+      summary: Add a new shipping address
+      description: Add a new shipping address to the store
+      operationId: addShippingAddress
       requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-  /store/inventory:
-    get:
-      tags:
-        - store
-      summary: Returns pet inventories by status
-      description: Returns a map of status codes to quantities
-      operationId: getInventory
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
-      security:
-        - api_key: []
-  /store/order:
-    post:
-      tags:
-        - store
-      summary: Place an order for a pet
-      description: Place a new order in the store
-      operationId: placeOrder
-      requestBody:
+        description: New shipping address object
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Order'
+              $ref: '#/components/schemas/ShippingAddress'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Order'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Order'
+              $ref: '#/components/schemas/ShippingAddress'
       responses:
-        '200':
-          description: successful operation
+        '201':
+          description: Shipping address added successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
-        '400':
-          description: Invalid input
-        '422':
-          description: Validation exception
-  /store/order/{orderId}:
-    get:
-      tags:
-        - store
-      summary: Find purchase order by ID
-      description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
-      operationId: getOrderById
-      parameters:
-        - name: orderId
-          in: path
-          description: ID of order that needs to be fetched
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
+                $ref: '#/components/schemas/ShippingAddress'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Order'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Order not found
-    delete:
+                $ref: '#/components/schemas/ShippingAddress'
+        '422':
+          description: Unprocessable entity
+  /shipping/{id}:
+    get:
       tags:
-        - store
-      summary: Delete purchase order by ID
-      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-      operationId: deleteOrder
+        - Shipping
+      summary: Get a shipping address by ID
+      description: Get a shipping address by its ID
+      operationId: getShippingAddressById
       parameters:
-        - name: orderId
+        - name: id
           in: path
-          description: ID of the order that needs to be deleted
+          description: ID of the shipping address to retrieve
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
       responses:
-        '400':
-          description: Invalid ID supplied
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingAddress'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ShippingAddress'
         '404':
-          description: Order not found
-  /user:
+          description: Shipping address not found
+    put:
+      tags:
+        - Shipping
+      summary: Update an existing shipping address
+      description: Update an existing shipping address by ID
+      operationId: updateShippingAddress
+      parameters:
+        - name: id
+          in: path
+          description: ID of the shipping address to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated shipping address object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingAddress'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ShippingAddress'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingAddress'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ShippingAddress'
+        '404':
+          description: Shipping address not found
+        '422':
+          description: Unprocessable entity
+  /signup:
     post:
       tags:
         - user
-      summary: Create user
-      description: This can only be done by the logged in user.
+      summary: Create a new user
+      description: Create a new user account
       operationId: createUser
       requestBody:
-        description: Created user object
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/UserSignup'
       responses:
-        default:
-          description: successful operation
+        '201':
+          description: User created successfully
+        '422':
+          description: Unprocessable entity
+  /users:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      description: Retrieve a list of all users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
             application/xml:
               schema:
-                $ref: '#/components/schemas/User'
-  /user/createWithList:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
     post:
       tags:
         - user
-      summary: Creates list of users with given input array
-      description: Creates list of users with given input array
-      operationId: createUsersWithListInput
+      summary: Add a new user
+      description: Add a new user to the system
+      operationId: addUser
       requestBody:
+        description: New user object
+        required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User added successfully
+        '422':
+          description: Unprocessable entity
+  /users/{id}:
+    get:
+      tags:
+        - user
+      summary: Get a user by ID
+      description: Get a user by its ID
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user to retrieve
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Successful operation
@@ -471,336 +347,151 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/User'
-        default:
-          description: successful operation
-  /user/login:
-    get:
-      tags:
-        - user
-      summary: Logs user into the system
-      description: ''
-      operationId: loginUser
-      parameters:
-        - name: username
-          in: query
-          description: The user name for login
-          required: false
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-        '400':
-          description: Invalid username/password supplied
-  /user/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ''
-      operationId: logoutUser
-      parameters: []
-      responses:
-        default:
-          description: successful operation
-  /user/{username}:
-    get:
-      tags:
-        - user
-      summary: Get user by user name
-      description: ''
-      operationId: getUserByName
-      parameters:
-        - name: username
-          in: path
-          description: 'The name that needs to be fetched. Use user1 for testing. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid username supplied
         '404':
           description: User not found
     put:
       tags:
         - user
-      summary: Update user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
+      summary: Update a user by ID
+      description: Update a user by its ID
+      operationId: updateUserById
       parameters:
-        - name: username
+        - name: id
           in: path
-          description: name that need to be deleted
+          description: ID of the user to update
           required: true
           schema:
             type: string
       requestBody:
-        description: Update an existent user in the store
+        description: Updated user object
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
       responses:
-        default:
-          description: successful operation
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+        '422':
+          description: Unprocessable entity
     delete:
       tags:
         - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
+      summary: Delete a user by ID
+      description: Delete a user by its ID
+      operationId: deleteUserById
       parameters:
-        - name: username
+        - name: id
           in: path
-          description: The name that needs to be deleted
+          description: ID of the user to delete
           required: true
           schema:
             type: string
       responses:
-        '400':
-          description: Invalid username supplied
+        '204':
+          description: User deleted successfully
         '404':
           description: User not found
+
 components:
   schemas:
-    Order:
+    Product:
       type: object
       properties:
-        id:
+        MyName:
+          type: string
+          example: 'Updated John kingh'
+        MyImage:
+          type: string
+          example: /images/me.jpg
+        MyBrand:
+          type: string
+          example: tea
+        MyCategory:
+          type: string
+          example: toast
+        MyDescription:
+          type: string
+          example: breakfast
+        MyRating:
           type: integer
-          format: int64
-          example: 10
-        petId:
-          type: integer
-          format: int64
-          example: 198772
-        quantity:
-          type: integer
-          format: int32
-          example: 7
-        shipDate:
-          type: string
-          format: date-time
-        status:
-          type: string
-          description: Order Status
-          example: approved
-          enum:
-            - placed
-            - approved
-            - delivered
-        complete:
-          type: boolean
-      xml:
-        name: order
-    Customer:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 100000
-        username:
-          type: string
-          example: fehguy
-        address:
-          type: array
-          xml:
-            name: addresses
-            wrapped: true
-          items:
-            $ref: '#/components/schemas/Address'
-      xml:
-        name: customer
-    Address:
-      type: object
-      properties:
-        street:
-          type: string
-          example: 437 Lytton
-        city:
-          type: string
-          example: Palo Alto
-        state:
-          type: string
-          example: CA
-        zip:
-          type: string
-          example: '94301'
-      xml:
-        name: address
-    Category:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
           example: 1
-        name:
-          type: string
-          example: Dogs
-      xml:
-        name: category
-    User:
-      type: object
-      properties:
-        id:
+        MyNumReivews:
           type: integer
-          format: int64
-          example: 10
-        username:
-          type: string
-          example: theUser
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: James
-        email:
-          type: string
-          example: john@email.com
-        password:
-          type: string
-          example: '12345'
-        phone:
-          type: string
-          example: '12345'
-        userStatus:
+          example: 2
+        MyPrice:
           type: integer
-          description: User Status
-          format: int32
-          example: 1
-      xml:
-        name: user
-    Tag:
-      type: object
-      properties:
-        id:
+          example: 23
+        ProductCount:
           type: integer
-          format: int64
-        name:
-          type: string
-      xml:
-        name: tag
-    Pet:
-      required:
-        - name
-        - photoUrls
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        name:
-          type: string
-          example: doggie
-        category:
-          $ref: '#/components/schemas/Category'
-        photoUrls:
-          type: array
-          xml:
-            wrapped: true
-          items:
-            type: string
-            xml:
-              name: photoUrl
-        tags:
-          type: array
-          xml:
-            wrapped: true
-          items:
-            $ref: '#/components/schemas/Tag'
-        status:
-          type: string
-          description: pet status in the store
-          enum:
-            - available
-            - pending
-            - sold
+          example: 2
       xml:
         name: pet
-    ApiResponse:
+
+    ShippingAddress:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-        type:
+        fullName:
           type: string
-        message:
+          example: John kingh
+        addressLine1:
           type: string
-      xml:
-        name: '##default'
-  requestBodies:
-    Pet:
-      description: Pet object that needs to be added to the store
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Pet'
-    UserArray:
-      description: List of user object
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-  securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
-          scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+          example: 3 Ballo Road
+        addressLine2:
+          type: string
+          example: Springtown
+        city:
+          type: string
+          example: Derry
+        postalCode:
+          type: string
+          example: BT82 9KL
+        country:
+          type: string
+          example: Northern Ireland
+
+    UserSignup:
+      type: object
+      required:
+        - username
+        - password
+        - email
+        - userType
+      properties:
+        username:
+          type: string
+          example: AdminUseJk
+        password:
+          type: string
+          example: adminemaik
+        email:
+          type: string
+          format: email
+          example: admin@email2k.com
+        userType:
+          type: string
+          example: Admin
+
+    User:
+      type: object
+      required:
+        - username
+        - email
+        - userType
+      properties:
+        username:
+          type: string
+          example: billllll jjjjjjmjkkbbbb
+        email:
+          type: string
+          format: email
+          example: bijjjjjll
+        userType:
+          type: string
+          example: Admin
