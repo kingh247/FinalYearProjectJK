@@ -11,7 +11,6 @@ import productsRoute from './routes/productsRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import signUpRoute from './routes/signUpRoute.js';
 import loginRoute from './routes/loginRoute.js';
-import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import yaml from 'js-yaml'; // Import yaml library
 import fs from 'fs';
