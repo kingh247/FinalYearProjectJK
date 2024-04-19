@@ -25,23 +25,7 @@ const swaggerSpec = yaml.load(swaggerFile);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// // Swagger options
-// const swaggerOptions = {
-//   swaggerDefinition: {
-//     info: {
-//       title: 'Eccomere B2B project',
-//       version: '1.0.0',
-//       description: 'API documentation generated with Swagger',
-//       contact: {
-//         name: 'John kingh',
-//       },
-//       server: ['https://localhost:5000'],
-//     },
-//   },
-//   apis: ['./app.js'], // Path to the API routes file(s)
-// };
-// const swaggerSpec = swaggerJSDoc(swaggerOptions);
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // app.get('/', (req, res) => {
 //   res.send('Hello, welcome to the server!');
