@@ -8,9 +8,11 @@ describe('Test', () => {
     //clcik on user edit
     cy.findByRole('button', { name: /view product list/i }).click();
     // click edit  change back to john kingh
+
     const row = cy.findByRole('row', {
-      name: /65f44c15440e962365e34863 updated john kingh 13 0 lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua\. ut enim adminim veniam edit delete/i,
+      name: /65f44c15440e962365e34863 updated john kingh 23 2 breaskfast edit delete/i,
     });
+
     row.findByRole('button', { name: /edit/i }).click();
     // // edit user product
 
