@@ -3,11 +3,16 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import LoginScreen from '../LoginScreen';
 import mockData from '../../../../backend/mockData/getMock';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
 describe('LoginScreen', () => {
   test('renders login form', () => {
-    render(<LoginScreen />);
+    render(
+      <BrowserRouter>
+        <LoginScreen />
+      </BrowserRouter>
+    );
 
     expect(screen.getByLabelText('Username:')).toBeInTheDocument();
     expect(screen.getByLabelText('Password:')).toBeInTheDocument();
@@ -16,7 +21,11 @@ describe('LoginScreen', () => {
 });
 describe('LoginScreens', () => {
   test('handles successful login', async () => {
-    render(<LoginScreen />);
+    render(
+      <BrowserRouter>
+        <LoginScreen />
+      </BrowserRouter>
+    );
 
     // Simulate user input
     userEvent.type(screen.getByLabelText('Username:'), mockData[0].username);
@@ -44,7 +53,11 @@ describe('LoginScreens', () => {
 
     jest.spyOn(axios, 'post').mockResolvedValueOnce(mockLoginResponse);
 
-    render(<LoginScreen />);
+    render(
+      <BrowserRouter>
+        <LoginScreen />
+      </BrowserRouter>
+    );
 
     const usernameInput = screen.getByLabelText('Username:');
     const passwordInput = screen.getByLabelText('Password:');
@@ -67,7 +80,11 @@ describe('LoginScreens', () => {
 
     jest.spyOn(axios, 'post').mockResolvedValueOnce(mockLoginResponse);
 
-    render(<LoginScreen />);
+    render(
+      <BrowserRouter>
+        <LoginScreen />
+      </BrowserRouter>
+    );
 
     const usernameInput = screen.getByLabelText('Username:');
     const passwordInput = screen.getByLabelText('Password:');

@@ -2,11 +2,16 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SignUpScreen from '../SignUpScreen';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
 describe('SignUpScreen', () => {
   test('renders sign-up form', () => {
-    render(<SignUpScreen />);
+    render(
+      <BrowserRouter>
+        <SignUpScreen />
+      </BrowserRouter>
+    );
 
     expect(screen.getByLabelText('Name:')).toBeInTheDocument();
     expect(screen.getByLabelText('Email:')).toBeInTheDocument();
@@ -25,7 +30,11 @@ describe('SignUpScreen', () => {
 
     jest.spyOn(axios, 'post').mockResolvedValueOnce(mockSignUpResponse);
 
-    render(<SignUpScreen />);
+    render(
+      <BrowserRouter>
+        <SignUpScreen />
+      </BrowserRouter>
+    );
 
     const nameInput = screen.getByLabelText('Name:');
     const emailInput = screen.getByLabelText('Email:');
