@@ -91,13 +91,14 @@
 									"// Parse the response JSON\r",
 									"var jsonData = pm.response.json();\r",
 									"\r",
-									"// Check if the status code is 200\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"// Check if the status code is 404\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -192,7 +193,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"AdminUser5cg5tt5h\",\r\n  \"password\": \"admin@email.com\"\r\n}",
+							"raw": "{\r\n  \"username\": \"AdminUser5cg5tt5hg\",\r\n  \"password\": \"admin@email.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

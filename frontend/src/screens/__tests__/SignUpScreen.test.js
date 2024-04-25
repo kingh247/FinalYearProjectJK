@@ -71,3 +71,4 @@ describe('SignUpScreen', () => {
     // Any other assertions
   });
 });
+
