@@ -1,6 +1,6 @@
 
 import React from 'react';
-import featureImage from '../assets/logo.jpg'; // Adjust the path and file extension
+// import featureImage from '../assets/logo.jpg'; // Adjust the path and file extension
 import Video from '../assets/video/video.mp4';
 
 const Features = () => {
