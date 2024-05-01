@@ -26,15 +26,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 
-// app.get('/', (req, res) => {
-//   res.send('Hello, welcome to the server!');
-// });
-// to use paypal
-app.use('/api/config/paypal', (req, res) => {
-  res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
-});
-
-
 // // Middleware to connect to front end
 app.use(express.json());
 app.use(cors());
