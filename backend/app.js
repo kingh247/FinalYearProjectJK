@@ -19,10 +19,10 @@ connectDB(); // used for the testing comment out when not using it
 const app = express();
 
 // // Load YAML file
-const swaggerFile = fs.readFileSync('./swaggerCopy.yaml', 'utf8');
-const swaggerSpec = yaml.load(swaggerFile);
+// const swaggerFile = fs.readFileSync('./swaggerCopy.yaml', 'utf8');
+// const swaggerSpec = yaml.load(swaggerFile);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // // Middleware to connect to front end
 app.use(express.json());
