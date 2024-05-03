@@ -5,6 +5,8 @@ import axios from 'axios';
 const ShippingScreen = () => {
   const navigate = useNavigate(); // for back button
 
+  // State variables to store the input values for shipping details
+
   const [shippingName, setShippingName] = useState('');
   const [shippingAddress1, setShippingAddress1] = useState('');
   const [shippingAddress2, setShippingAddress2] = useState('');
@@ -17,6 +19,7 @@ const ShippingScreen = () => {
     e.preventDefault();
 
     try {
+      // Post request to add shipping details
       const response = await axios.post('http://localhost:5000/api/shipping', {
         fullName: shippingName,
         addressLine1: shippingAddress1,
@@ -41,7 +44,7 @@ const ShippingScreen = () => {
   };
 
   const goBackToPayment = () => {
-    navigate('/payment'); // Replace '/admin-panel' with the actual route for your admin panel
+    navigate('/payment'); // naviagate the payment page
   };
 
   return (

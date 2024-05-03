@@ -15,7 +15,7 @@ const EditPaymentScreen = () => {
   });
   const history = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => {  //Fetching shipping data
     const fetchShipping = async () => {
       try {
         const { data } = await axios.get(`/api/shipping/${shippingId}`);
@@ -36,7 +36,9 @@ const EditPaymentScreen = () => {
   }, [shippingId]);
 
   const handleChange = (e) => {
+    // Handling form input change
     setFormData({
+      // Updating form data with new input values
       ...formData,
       [e.target.name]: e.target.value,
     });
@@ -46,6 +48,7 @@ const EditPaymentScreen = () => {
     e.preventDefault();
 
     try {
+      // Updating shipping data with new form data
       await axios.put(`/api/shipping/${shippingId}`, formData);
       history('/payment');
     } catch (error) {

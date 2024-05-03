@@ -130,7 +130,7 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 // import products from '../products';
 import { useGetProductDetailsQuery } from '../slices/productApiSlice';
-import { useDispatch } from'react-redux';
+import { useDispatch } from 'react-redux';
 import { addItem } from '../slices/cartSlice';
 import {
   ListGroup,
@@ -151,7 +151,7 @@ const ProductScreen = () => {
 
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate(); // Hook for navigating between routes
 
   const {
     data: product,
@@ -168,10 +168,9 @@ const ProductScreen = () => {
     return <p>Error loading products</p>;
   }
 
-  const addToCartHandler =()=>{
+  const addToCartHandler = () => {
     dispatch(addItem({ ...product, qty }));
     history('/cart');
-  
   };
   return (
     <>
@@ -264,6 +263,17 @@ const ProductScreen = () => {
                   Add to Cart
                 </Button>
               </ListGroup.Item>
+              <ListGroup.Item>
+                {/* Button to navigate back to products or home screen */}
+                <Button
+                  type="button"
+                  className="btn-block"
+                  onClick={() => navigate('/')}
+                >
+                  Back to Products
+                </Button>
+              </ListGroup.Item>
+
               {/* </ListGroup.Item> */}
             </ListGroup>
           </Card>

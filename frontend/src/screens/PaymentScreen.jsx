@@ -16,6 +16,7 @@ const PaymentScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Fetch shipping details
   useEffect(() => {
     const fetchShipping = async () => {
       try {
@@ -29,6 +30,8 @@ const PaymentScreen = () => {
   }, []);
 
   const history = useNavigate(); // for back button
+
+  // Handle deletion of shipping details
   const handleDelete = async (shippingId) => {
     try {
       await axios.delete(`/api/shipping/${shippingId}`);

@@ -14,19 +14,21 @@ import {
 import { FaTrash } from 'react-icons/fa';
 
 const ShoppingCartScreen = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate(); // Hook for navigating between routes
+  const dispatch = useDispatch(); // Hook to dispatch Redux actions
 
-  const cart = useSelector((state) => state.cart);
-  const { items } = cart;
+  const cart = useSelector((state) => state.cart); // Access the cart state from Redux store
+  const { items } = cart; // Destructure to get items from the cart
 
+  // Function to handle adding an item with a new quantity to the cart
   const addToCartHandler = async (product, qty) => {
     dispatch(addItem({ ...product, qty }));
   };
+  // Function to handle removing an item from the cart by id
   const removeCartHandler = async (id) => {
     dispatch(removeItem(id));
   };
-
+  // Function to handle the checkout process
   const checkoutHandler = async () => {
     // Check if user is logged in
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -34,7 +36,7 @@ const ShoppingCartScreen = () => {
       // If not logged in, redirect to login screen
       navigate('/login');
     } else {
-      // If logged in, proceed to checkout
+      // Calculate total price and navigate to shipping screen
       const totalPrice = items
         .reduce((ac, item) => ac + item.MyPrice * item.qty, 0)
         .toFixed(2);
@@ -123,6 +125,16 @@ const ShoppingCartScreen = () => {
                 onClick={checkoutHandler}
               >
                 Proceed to Checkout
+              </Button>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              {/* Button to navigate back to products or home screen */}
+              <Button
+                type="button"
+                className="btn-block"
+                onClick={() => navigate('/')}
+              >
+                Back to Products
               </Button>
             </ListGroup.Item>
           </ListGroup>

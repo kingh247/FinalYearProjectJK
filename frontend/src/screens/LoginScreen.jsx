@@ -11,11 +11,12 @@ const LoginScreen = () => {
     e.preventDefault();
 
     try {
+      // Sending login request to the server
       const response = await axios.post('/api/login', { username, password });
       const data = response.data;
 
       console.log('Login result:', data);
-
+      // Redirecting user based on userType
       if (data.userType === 'Admin') {
         console.log('User is an admin');
         window.location.href = 'http://localhost:3000/admin';
@@ -23,7 +24,7 @@ const LoginScreen = () => {
         console.log('User is not an admin');
         window.location.href = 'http://localhost:3000';
       }
-
+      // Storing user data in localStorage
       localStorage.setItem('userData', JSON.stringify(data));
     } catch (error) {
       console.error('Error:', error.response.data.error);

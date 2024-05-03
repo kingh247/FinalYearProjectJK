@@ -17,6 +17,7 @@ const SignUpScreen = () => {
 
     axios
       .post('http://localhost:5000/api/signup', {
+        // Sending signup request to the server
         username,
         email,
         password,
@@ -25,7 +26,6 @@ const SignUpScreen = () => {
       .then((result) => {
         console.log(result);
         // Redirect to login page upon successful signup
-        // You can use react-router-dom's useHistory hook here as well
         window.location.href = '/login';
       })
       .catch((err) => {
