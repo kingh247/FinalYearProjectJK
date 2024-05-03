@@ -8,7 +8,7 @@ const Header = () => {
   const { items } = useSelector((state) => state.cart); // calling this from store.js
   console.log(items); //displaying the items that are in the cart
 
-  // Retrieve user data from local storage
+  // Retrieve user data from local storage using tenary operators
   const userData = JSON.parse(localStorage.getItem('userData'));
   const loggedInUsername = userData ? userData.username : null;
   const userType = userData ? userData.userType : null;
@@ -20,7 +20,7 @@ const Header = () => {
     // empty the cart data stoed in local storage
     localStorage.removeItem('cart');
     // Redirect to the login page or any other page
-    window.location.href = '/login'; // Assuming login page URL is '/login'
+    window.location.href = '/login'; 
   };
 
   return (

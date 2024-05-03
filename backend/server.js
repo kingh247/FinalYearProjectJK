@@ -12,20 +12,36 @@ import app from './app.js'; // calling the api functions from app.js to keep ser
 app.use('/api/config/paypal', (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });
 });
+// const __dirname = path.dirname('');
+// // Set static folder to serve frontend build files
+// const buildPath = path.join(__dirname, '../frontend/build');
+// app.use(express.static(buildPath));
 
-// for render to
-const __dirname = path.resolve();
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static(path.join(__dirname, '/frontend/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
-} else {
-  app.get('/', (req, res) => {
-    res.send('Hello, welcome to the server!');
-  });
-}
+// // Serve React app's index.html for all routes
+// app.get('/*', function (req, res) {
+//   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+// });
+
+
+
+// // for render to
+// const __dirname = path.resolve();
+// if (process.env.NODE_ENV === 'production') {
+//   // Set static folder
+//   app.use(express.static(path.join(__dirname, '/frontend/build')));
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+//   });
+// } else {
+//   app.get('/', (req, res) => {
+//     res.send('Hello, welcome to the server!');
+//   });
+// }
+
+// app.get('/', (req, res) => {
+//   res.send('Hello, welcome to the server!');
+// });
+
 // // Middleware to connect to front end
 app.use(express.json());
 app.use(cors());

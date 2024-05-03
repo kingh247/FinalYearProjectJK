@@ -19,6 +19,8 @@ const AdminPage = () => {
     e.preventDefault();
 
     try {
+      // Send POST request to add product,
+      //Axios is being imported for making HTTP requests in the component.
       const response = await axios.post('http://localhost:5000/api/product', {
         MyName: productName,
         MyImage: productImage,
@@ -36,6 +38,7 @@ const AdminPage = () => {
       console.error('Error adding product:', error);
     }
   };
+  // Function to handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -51,7 +54,7 @@ const AdminPage = () => {
 
   const goBackToAdminPanel = () => {
     // Use navigate function to go back to the admin panel
-    navigate('/admin'); // Replace '/admin-panel' with the actual route for your admin panel
+    navigate('/admin'); 
   };
   return (
     <div className="admin-container">
